@@ -1,0 +1,19 @@
+{
+  "name": "accounting-ledger",
+  "version": "1.0.0",
+  "description": "A simple Node.js + TypeScript bookkeeping API server.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "accounting",
+    "ledger",
+    "bookkeeping",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
