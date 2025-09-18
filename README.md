@@ -71,7 +71,8 @@ npm test
 ## Деплой на Vercel
 
 1. Установите [Vercel CLI](https://vercel.com/docs/cli) и выполните `vercel login`.
-2. В корне проекта запустите `vercel` и следуйте инструкциям.
+2. В корне проекта запустите `vercel` и следуйте инструкциям. Во время билда Vercel выполнит `npm run vercel-build`,
+   который компилирует TypeScript в директорию `dist`.
 3. При необходимости определите переменную окружения `DATA_FILE_PATH` (например, `/tmp/finance-data.json`).
 
 После деплоя API будет доступно по адресу `https://<project-name>.vercel.app/api/transactions`.

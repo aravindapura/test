@@ -8,7 +8,8 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "typeRoots": ["./types"]
   },
   "include": ["src", "api", "tests", "types"],
   "exclude": ["node_modules", "dist"]
