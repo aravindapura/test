@@ -1,0 +1,15 @@
+{
+  "functions": {
+    "api/index.ts": {
+      "runtime": "nodejs22.x"
+    },
+    "api/[...route].ts": {
+      "runtime": "nodejs22.x"
+    }
+  },
+  "rewrites": [
+    { "source": "/transactions", "destination": "/api/transactions" },
+    { "source": "/transactions/:id", "destination": "/api/transactions/:id" },
+    { "source": "/summary", "destination": "/api/summary" }
+  ]
+}
