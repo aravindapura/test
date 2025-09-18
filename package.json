@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch scripts/dev-server.ts",
-    "build": "tsc --noEmit",
+    "build": "tsc",
     "test": "vitest",
     "lint": "tsc --noEmit"
   },
