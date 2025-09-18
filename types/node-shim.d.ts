@@ -17,6 +17,18 @@ declare module 'path' {
   export function isAbsolute(path: string): boolean;
 }
 
+declare module 'readline/promises' {
+  export interface Interface {
+    question(query: string): Promise<string>;
+    close(): void;
+  }
+
+  export function createInterface(options: {
+    input: NodeJS.ReadableStream;
+    output?: NodeJS.WritableStream;
+  }): Interface;
+}
+
 declare module 'os' {
   export function tmpdir(): string;
 }
@@ -58,6 +70,16 @@ declare namespace NodeJS {
   interface ErrnoException extends Error {
     code?: string;
   }
+
+  interface ReadableStream {
+    resume(): void;
+    setEncoding(encoding: string): void;
+    on(event: string, listener: (...args: unknown[]) => void): void;
+  }
+
+  interface WritableStream {
+    write(data: string): void;
+  }
 }
 
 declare const process: {
@@ -65,9 +87,12 @@ declare const process: {
   env: Record<string, string | undefined>;
   argv: string[];
   exit(code?: number): never;
+  stdin: NodeJS.ReadableStream;
+  stdout: NodeJS.WritableStream;
 };
 
 declare class Buffer extends Uint8Array {
   static concat(list: Buffer[]): Buffer;
   static from(data: string | ArrayBufferView): Buffer;
+  static isBuffer(value: unknown): value is Buffer;
 }

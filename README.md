@@ -23,22 +23,29 @@ npm run dev
 сохраняются в `data/finance-data.json`. Чтобы указать свой путь, задайте переменную окружения `DATA_FILE_PATH`. После изменений в
 коде перезапустите команду, чтобы пересобрать проект.
 
-### Консольный интерфейс
+Для офлайн-учёта без HTTP-запросов используйте интерактивную утилиту `npm start`.
 
-Для быстрой работы с данными без HTTP-запросов можно воспользоваться CLI:
+### Интерактивное приложение
+
+Запустите приложение в терминале и управляйте операциями через простое меню:
 
 ```bash
-npm run start -- list
-npm run start -- add-income --amount 1000 --category Salary
-npm run start -- add-expense --amount 200 --category Food --description "Groceries"
+npm start
 ```
 
-Доступные команды:
+Вы сможете добавлять доходы и расходы, просматривать баланс, список операций и сводку по категориям без ручного ввода параметров.
 
-- `list` — показывает все операции.
-- `balance` — выводит текущий баланс.
-- `summary` — отображает агрегированные суммы по категориям.
-- `add-income` и `add-expense` — добавляют новую операцию. Используйте флаги `--amount`, `--category`, `--description`, `--date`.
+### Скрипты для автоматизации
+
+Если предпочитаете автоматизацию через параметры командной строки, используйте CLI-режим:
+
+```bash
+npm run cli -- list
+npm run cli -- add-income --amount 1000 --category Salary
+npm run cli -- add-expense --amount 200 --category Food --description "Groceries"
+```
+
+Команды и флаги остаются прежними: `list`, `balance`, `summary`, `add-income`, `add-expense` с параметрами `--amount`, `--category`, `--description`, `--date`.
 
 ### Примеры запросов
 
