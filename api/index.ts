@@ -5,13 +5,6 @@ import { createFinanceHandler } from '../src/http/financeHandler';
 
 const handler = createFinanceHandler(new FinanceService(), { basePath: '/api' });
 
-export const config = {
-  runtime: 'nodejs20.x',
-  api: {
-    bodyParser: false,
-  },
-};
-
 export default async function handlerEntry(
   req: IncomingMessage,
   res: ServerResponse,
