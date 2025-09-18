@@ -26,12 +26,31 @@ declare module 'http' {
     headers: Record<string, string | string[] | undefined>;
     method?: string;
     url?: string;
+    [Symbol.asyncIterator](): AsyncIterableIterator<Buffer>;
   }
 
   export interface ServerResponse {
     statusCode: number;
-    setHeader(name: string, value: string): void;
+    setHeader(name: string, value: string | number | ReadonlyArray<string>): void;
+    getHeader(name: string): string | number | string[] | undefined;
     end(data?: unknown): void;
+  }
+
+  export function createServer(
+    listener: (
+      request: IncomingMessage,
+      response: ServerResponse
+    ) => void | Promise<void>
+  ): { listen(port: number, callback?: () => void): void };
+}
+
+declare module 'url' {
+  export class URL {
+    constructor(input: string, base?: string | URL);
+    readonly pathname: string;
+    readonly searchParams: {
+      entries(): IterableIterator<[string, string]>;
+    };
   }
 }
 
@@ -46,4 +65,7 @@ declare const process: {
   env: Record<string, string | undefined>;
 };
 
-declare class Buffer extends Uint8Array {}
+declare class Buffer extends Uint8Array {
+  static concat(list: Buffer[]): Buffer;
+  static from(data: string | ArrayBufferView): Buffer;
+}

@@ -1,4 +1,5 @@
-import { afterEach, beforeEach, describe, expect, test } from 'vitest';
+import { afterEach, beforeEach, describe, test } from 'node:test';
+import assert from 'node:assert/strict';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { tmpdir } from 'os';
@@ -11,7 +12,7 @@ beforeEach(async () => {
   try {
     await fs.unlink(TEST_FILE);
   } catch {
-    // ignore
+    // ignore missing file
   }
 });
 
@@ -19,7 +20,7 @@ afterEach(async () => {
   try {
     await fs.unlink(TEST_FILE);
   } catch {
-    // ignore
+    // ignore missing file
   }
 });
 
@@ -30,11 +31,11 @@ describe('FinanceTracker', () => {
     await tracker.addExpense({ amount: 200, category: 'Food', description: 'Groceries' });
 
     const transactions = tracker.getTransactions();
-    expect(transactions).toHaveLength(2);
+    assert.strictEqual(transactions.length, 2);
 
     const reloaded = await FinanceTracker.init();
-    expect(reloaded.getTransactions()).toHaveLength(2);
-    expect(reloaded.getBalance()).toBe(800);
+    assert.strictEqual(reloaded.getTransactions().length, 2);
+    assert.strictEqual(reloaded.getBalance(), 800);
   });
 
   test('summarizes totals per category using signed amounts', async () => {
@@ -47,14 +48,16 @@ describe('FinanceTracker', () => {
     const salaryEntry = summary.find((entry) => entry.category === 'salary');
     const foodEntry = summary.find((entry) => entry.category === 'food');
 
-    expect(salaryEntry?.total).toBe(700);
-    expect(foodEntry?.total).toBe(-100);
+    assert.ok(salaryEntry, 'Salary entry should be present');
+    assert.strictEqual(salaryEntry!.total, 700);
+    assert.ok(foodEntry, 'Food entry should be present');
+    assert.strictEqual(foodEntry!.total, -100);
   });
 
   test('rejects invalid data', async () => {
     const tracker = await FinanceTracker.init();
 
-    await expect(tracker.addIncome({ amount: -10, category: 'bonus' })).rejects.toThrow('Amount must be a positive number.');
-    await expect(tracker.addExpense({ amount: 10, category: '   ' })).rejects.toThrow('Category must not be empty.');
+    await assert.rejects(tracker.addIncome({ amount: -10, category: 'bonus' }), /Amount must be a positive number\./);
+    await assert.rejects(tracker.addExpense({ amount: 10, category: '   ' }), /Category must not be empty\./);
   });
 });
