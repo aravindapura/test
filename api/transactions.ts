@@ -1,14 +1,6 @@
-import { z } from 'zod';
 import { FinanceTracker } from '../src/financeTracker.js';
 import type { VercelRequest, VercelResponse } from '../src/vercel-types.js';
-
-const transactionSchema = z.object({
-  amount: z.number().positive(),
-  category: z.string().min(1),
-  description: z.string().optional(),
-  date: z.string().optional(),
-  type: z.enum(['income', 'expense']).default('expense'),
-});
+import type { TransactionPayload, TransactionType } from '../src/types.js';
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   if (request.method === 'OPTIONS') {
@@ -41,10 +33,10 @@ async function handleGet(response: VercelResponse) {
 async function handlePost(request: VercelRequest, response: VercelResponse) {
   try {
     const body = parseBody(request);
-    const payload = transactionSchema.parse(body);
+    const { transactionType, payload } = validatePayload(body);
     const tracker = await FinanceTracker.init();
     const transaction =
-      payload.type === 'income'
+      transactionType === 'income'
         ? await tracker.addIncome(payload)
         : await tracker.addExpense(payload);
 
@@ -52,10 +44,6 @@ async function handlePost(request: VercelRequest, response: VercelResponse) {
     return response.status(201).json(transaction);
   } catch (error) {
     setCorsHeaders(response);
-    if (error instanceof z.ZodError) {
-      return response.status(400).json({ error: 'Invalid request body', details: error.flatten() });
-    }
-
     if (error instanceof Error) {
       return response.status(400).json({ error: error.message });
     }
@@ -75,6 +63,53 @@ function parseBody(request: VercelRequest): unknown {
   }
 
   return {};
+}
+
+function validatePayload(data: unknown): { transactionType: TransactionType; payload: TransactionPayload } {
+  if (!data || typeof data !== 'object') {
+    throw new Error('Request body must be an object.');
+  }
+
+  const record = data as Record<string, unknown>;
+  const amount = record.amount;
+  const category = record.category;
+  const description = record.description;
+  const date = record.date;
+  const type = record.type;
+
+  if (typeof amount !== 'number' || !Number.isFinite(amount) || amount <= 0) {
+    throw new Error('Amount must be a positive number.');
+  }
+
+  if (typeof category !== 'string' || category.trim().length === 0) {
+    throw new Error('Category must not be empty.');
+  }
+
+  if (description != null && typeof description !== 'string') {
+    throw new Error('Description must be a string.');
+  }
+
+  if (date != null && typeof date !== 'string') {
+    throw new Error('Date must be a string.');
+  }
+
+  let transactionType: TransactionType = 'expense';
+  if (type != null) {
+    if (type === 'income' || type === 'expense') {
+      transactionType = type;
+    } else {
+      throw new Error('Type must be either "income" or "expense".');
+    }
+  }
+
+  const payload: TransactionPayload = {
+    amount,
+    category,
+    description: description ?? undefined,
+    date: date ?? undefined,
+  };
+
+  return { transactionType, payload };
 }
 
 function setCorsHeaders(response: VercelResponse) {

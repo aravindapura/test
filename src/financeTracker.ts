@@ -1,13 +1,6 @@
 import { randomUUID } from 'crypto';
 import { loadTransactions, saveTransactions } from './storage.js';
-import { SummaryEntry, Transaction, TransactionType } from './types.js';
-
-export interface TransactionPayload {
-  amount: number;
-  category: string;
-  description?: string;
-  date?: string;
-}
+import { SummaryEntry, Transaction, TransactionPayload, TransactionType } from './types.js';
 
 function validateAmount(amount: number): void {
   if (!Number.isFinite(amount) || amount <= 0) {

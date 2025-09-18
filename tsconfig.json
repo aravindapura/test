@@ -8,9 +8,8 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "outDir": "dist",
-    "types": ["vitest"]
+    "outDir": "dist"
   },
-  "include": ["src", "api", "tests"],
+  "include": ["src", "api", "tests", "types"],
   "exclude": ["node_modules", "dist"]
 }
