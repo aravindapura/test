@@ -63,6 +63,8 @@ declare namespace NodeJS {
 declare const process: {
   cwd(): string;
   env: Record<string, string | undefined>;
+  argv: string[];
+  exit(code?: number): never;
 };
 
 declare class Buffer extends Uint8Array {

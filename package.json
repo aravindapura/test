@@ -6,6 +6,7 @@
     "build": "tsc",
     "dev": "npm run build && node dist/scripts/dev-server.js",
     "lint": "tsc --noEmit",
+    "start": "npm run build && node dist/src/cli.js",
     "test": "npm run build && node --test dist/tests/*.js"
   },
   "devDependencies": {

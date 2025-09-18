@@ -23,6 +23,23 @@ npm run dev
 сохраняются в `data/finance-data.json`. Чтобы указать свой путь, задайте переменную окружения `DATA_FILE_PATH`. После изменений в
 коде перезапустите команду, чтобы пересобрать проект.
 
+### Консольный интерфейс
+
+Для быстрой работы с данными без HTTP-запросов можно воспользоваться CLI:
+
+```bash
+npm run start -- list
+npm run start -- add-income --amount 1000 --category Salary
+npm run start -- add-expense --amount 200 --category Food --description "Groceries"
+```
+
+Доступные команды:
+
+- `list` — показывает все операции.
+- `balance` — выводит текущий баланс.
+- `summary` — отображает агрегированные суммы по категориям.
+- `add-income` и `add-expense` — добавляют новую операцию. Используйте флаги `--amount`, `--category`, `--description`, `--date`.
+
 ### Примеры запросов
 
 ```bash
