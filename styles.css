@@ -28,6 +28,138 @@ body {
   min-height: 100vh;
 }
 
+.intro-galaxy {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08), transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(15, 118, 214, 0.78), transparent 68%),
+    radial-gradient(circle at 60% 40%, rgba(2, 132, 199, 0.65), transparent 70%),
+    #020617;
+  filter: saturate(140%);
+  pointer-events: none;
+  transform-style: preserve-3d;
+  animation: introFadeOut 0.85s ease forwards;
+  animation-delay: 3s;
+}
+
+.intro-galaxy::before,
+.intro-galaxy::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: conic-gradient(
+      from 120deg,
+      rgba(14, 165, 233, 0),
+      rgba(14, 116, 224, 0.95) 18%,
+      rgba(56, 189, 248, 0) 40%,
+      rgba(59, 130, 246, 0.85) 62%,
+      rgba(14, 165, 233, 0) 85%,
+      rgba(2, 132, 199, 0.95)
+    ),
+    radial-gradient(circle at 40% 60%, rgba(186, 230, 253, 0.45), transparent 60%);
+  filter: blur(80px) contrast(115%);
+  mix-blend-mode: screen;
+  animation: introVortex 6s cubic-bezier(0.42, 0.07, 0.15, 1) infinite;
+}
+
+.intro-galaxy::after {
+  animation-direction: reverse;
+  animation-duration: 7.2s;
+  opacity: 0.72;
+}
+
+.intro-galaxy__core {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(191, 219, 254, 0.92), rgba(59, 130, 246, 0.32), transparent 70%);
+  box-shadow: 0 0 160px rgba(96, 165, 250, 0.75), 0 0 220px rgba(14, 165, 233, 0.65);
+  animation: corePulse 4.5s ease-in-out infinite;
+}
+
+.intro-galaxy__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(191, 219, 254, 0.4);
+  box-shadow: inset 0 0 45px rgba(191, 219, 254, 0.55), 0 0 100px rgba(14, 165, 233, 0.45);
+  transform: perspective(1100px) rotateX(68deg) rotateZ(0deg) scale3d(1, 1, 1);
+  transform-origin: center;
+  mix-blend-mode: screen;
+  animation: ringSpin 6s linear infinite;
+}
+
+.intro-galaxy__ring--one {
+  width: 760px;
+  height: 760px;
+  animation-duration: 7.5s;
+}
+
+.intro-galaxy__ring--two {
+  width: 520px;
+  height: 520px;
+  animation-direction: reverse;
+  animation-duration: 5.5s;
+}
+
+.intro-galaxy__stars {
+  position: absolute;
+  inset: -20%;
+  background-image:
+    radial-gradient(rgba(226, 232, 240, 0.8) 2px, transparent 0),
+    radial-gradient(rgba(56, 189, 248, 0.75) 1.4px, transparent 0),
+    radial-gradient(rgba(125, 211, 252, 0.65) 1.6px, transparent 0);
+  background-size: 180px 180px, 140px 140px, 220px 220px;
+  background-position: 20% 10%, 65% 45%, 35% 75%;
+  opacity: 0.65;
+  filter: blur(0.2px) brightness(1.3);
+  animation: starSurge 4s ease-in-out infinite;
+}
+
+.intro-galaxy__title {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px 48px;
+  border-radius: 28px;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 40px 120px rgba(15, 118, 214, 0.65);
+  transform: translateY(12px);
+  animation: titleLift 3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.intro-galaxy__name {
+  font-size: clamp(2.8rem, 6vw, 4.6rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e0f2fe;
+  text-shadow: 0 0 30px rgba(191, 219, 254, 0.9), 0 0 60px rgba(14, 165, 233, 0.8);
+  animation: nameReveal 1.6s ease forwards;
+}
+
+.intro-galaxy__role {
+  font-size: clamp(1rem, 3vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.85);
+  text-shadow: 0 0 18px rgba(96, 165, 250, 0.75);
+  animation: roleReveal 1.2s ease forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
 .tech-background {
   position: fixed;
   inset: 0;
@@ -393,6 +525,126 @@ body {
   transform: translateY(-2px);
 }
 
+@keyframes introFadeOut {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.06;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes introVortex {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(200deg) scale(1.08);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes corePulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.82;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes ringSpin {
+  0% {
+    transform: perspective(1100px) rotateX(68deg) rotateZ(0deg) scale3d(1, 1, 1);
+  }
+  50% {
+    transform: perspective(1100px) rotateX(72deg) rotateZ(200deg) scale3d(1.06, 1.06, 1);
+  }
+  100% {
+    transform: perspective(1100px) rotateX(68deg) rotateZ(360deg) scale3d(1, 1, 1);
+  }
+}
+
+@keyframes starSurge {
+  0% {
+    background-position: 20% 10%, 65% 45%, 35% 75%;
+    transform: translateZ(0) scale(1);
+    opacity: 0.55;
+  }
+  45% {
+    background-position: 28% 5%, 58% 38%, 42% 70%;
+    transform: translateZ(120px) scale(1.08);
+    opacity: 0.9;
+  }
+  100% {
+    background-position: 16% 18%, 72% 56%, 28% 82%;
+    transform: translateZ(-60px) scale(0.96);
+    opacity: 0.6;
+  }
+}
+
+@keyframes titleLift {
+  0% {
+    opacity: 0;
+    transform: translateY(48px) scale(0.9);
+    filter: blur(12px);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(0) scale(1.02);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes nameReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(26px) scale(0.94);
+    letter-spacing: 0.38em;
+    filter: blur(8px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0) scale(1.04);
+    letter-spacing: 0.12em;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    letter-spacing: 0.08em;
+    filter: blur(0);
+  }
+}
+
+@keyframes roleReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+    letter-spacing: 0.6em;
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    letter-spacing: 0.32em;
+    filter: blur(0);
+  }
+}
+
 @keyframes gridDrift {
   0% {
     transform: translate3d(0, 0, 0) rotateX(65deg) rotateZ(0deg) scale(1.05);
@@ -523,6 +775,34 @@ body {
 
   .hero__badge {
     justify-self: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-galaxy,
+  .intro-galaxy * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .intro-galaxy::before,
+  .intro-galaxy::after,
+  .intro-galaxy__core,
+  .intro-galaxy__ring,
+  .intro-galaxy__stars,
+  .intro-galaxy__title,
+  .intro-galaxy__name,
+  .intro-galaxy__role {
+    animation-name: none !important;
+  }
+
+  .intro-galaxy__title,
+  .intro-galaxy__name,
+  .intro-galaxy__role {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
   }
 }
 
