@@ -19,15 +19,74 @@
 body {
   margin: 0;
   font-family: inherit;
-  background: linear-gradient(140deg, #eef2ff 0%, #f8fafc 45%, #fef2f2 100%);
+  background: radial-gradient(circle at top, #172554 0%, #0f172a 45%, #020617 100%);
   color: var(--text);
   line-height: 1.6;
+  min-height: 100vh;
+}
+
+.tech-background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.3), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.22), transparent 60%),
+    radial-gradient(circle at 50% 80%, rgba(59, 130, 246, 0.18), transparent 65%),
+    #020617;
+}
+
+.tech-background__grid {
+  position: absolute;
+  width: 160%;
+  height: 160%;
+  top: -35%;
+  left: -30%;
+  background-image: linear-gradient(rgba(59, 130, 246, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.22) 1px, transparent 1px);
+  background-size: 80px 80px;
+  transform: translate3d(0, 0, 0) rotateX(65deg) rotateZ(0deg);
+  transform-origin: center;
+  opacity: 0.4;
+  animation: gridDrift 28s linear infinite;
+  filter: drop-shadow(0 0 45px rgba(59, 130, 246, 0.35));
+}
+
+.tech-background__orb {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  top: 12vh;
+  right: -200px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.55), rgba(14, 165, 233, 0.2), transparent);
+  filter: blur(12px);
+  transform: translateZ(0);
+  animation: orbFloat 18s ease-in-out infinite;
+}
+
+.tech-background__particles {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(148, 163, 184, 0.32) 2px, transparent 0),
+    radial-gradient(rgba(59, 130, 246, 0.25) 1.5px, transparent 0),
+    radial-gradient(rgba(14, 165, 233, 0.25) 1.8px, transparent 0);
+  background-size: 220px 220px, 180px 180px, 260px 260px;
+  background-position: 10% 20%, 60% 80%, 30% 70%;
+  opacity: 0.45;
+  animation: particleDrift 24s ease-in-out infinite;
 }
 
 .page {
   max-width: 1120px;
-  margin: 0 auto;
+  margin: 48px auto;
   padding: 56px 24px 72px;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(241, 245, 249, 0.86) 100%);
+  border-radius: 40px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 40px 120px rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(26px);
 }
 
 .hero {
@@ -224,7 +283,52 @@ body {
   transform: translateY(-2px);
 }
 
+@keyframes gridDrift {
+  0% {
+    transform: translate3d(0, 0, 0) rotateX(65deg) rotateZ(0deg);
+  }
+  50% {
+    transform: translate3d(0, 3%, 60px) rotateX(65deg) rotateZ(180deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotateX(65deg) rotateZ(360deg);
+  }
+}
+
+@keyframes orbFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.8;
+  }
+  45% {
+    transform: translate3d(-6%, 8%, 80px) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(4%, -4%, 0) scale(0.95);
+    opacity: 0.75;
+  }
+}
+
+@keyframes particleDrift {
+  0% {
+    background-position: 10% 20%, 60% 80%, 30% 70%;
+  }
+  50% {
+    background-position: 12% 18%, 58% 76%, 28% 68%;
+  }
+  100% {
+    background-position: 10% 20%, 60% 80%, 30% 70%;
+  }
+}
+
 @media (max-width: 900px) {
+  .page {
+    margin: 24px 16px;
+    padding: 48px 20px 64px;
+    border-radius: 28px;
+  }
+
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
@@ -257,5 +361,11 @@ body {
 
   .hero__badge {
     background: rgba(15, 23, 42, 0.7);
+  }
+
+  .page {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(2, 6, 23, 0.78) 100%);
+    border-color: rgba(51, 65, 85, 0.45);
+    box-shadow: 0 40px 120px rgba(2, 6, 23, 0.6);
   }
 }
