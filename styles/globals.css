@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-lotus-light text-slate-800;
+}
+
+a {
+  @apply text-pink-700 transition-colors duration-200;
+}
+
+a:hover {
+  @apply text-pink-900;
+}
