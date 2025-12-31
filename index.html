@@ -49,6 +49,7 @@
         font-size: 17px;
         line-height: 1.6;
         color: #3c3d45;
+        word-break: break-word;
       }
 
       .actions {
@@ -60,7 +61,7 @@
       .btn {
         display: block;
         width: 100%;
-        padding: 14px 16px;
+        padding: 15px 16px;
         font-size: 16px;
         font-weight: 600;
         color: #1f1f1f;
@@ -70,13 +71,13 @@
         text-decoration: none;
         text-align: center;
         cursor: pointer;
-        transition: background 0.2s ease, box-shadow 0.2s ease;
+        word-break: break-word;
       }
 
       .btn:hover,
       .btn:focus-visible {
-        background: #ebe5da;
-        box-shadow: 0 6px 18px rgba(33, 33, 52, 0.1);
+        background: #eae4d9;
+        box-shadow: 0 4px 14px rgba(33, 33, 52, 0.1);
         outline: none;
       }
 
@@ -98,11 +99,13 @@
       .modal {
         background: #ffffff;
         color: #1f1f1f;
-        width: min(520px, 100%);
+        width: min(520px, calc(100% - 16px));
         border-radius: 16px;
         box-shadow: 0 16px 40px rgba(33, 33, 52, 0.14);
         padding: 22px 22px 18px;
         position: relative;
+        max-height: 90vh;
+        overflow-y: auto;
       }
 
       .modal__title {
@@ -119,6 +122,7 @@
         font-size: 16px;
         line-height: 1.6;
         color: #3c3d45;
+        word-break: break-word;
       }
 
       .modal__list li + li {
@@ -128,6 +132,10 @@
       .modal__actions {
         display: flex;
         gap: 10px;
+      }
+
+      .modal__actions .btn {
+        flex: 1;
       }
 
       .modal__close {
@@ -177,6 +185,14 @@
 
         .subtitle {
           font-size: 15px;
+        }
+
+        .modal {
+          width: 100%;
+        }
+
+        .modal__actions {
+          flex-direction: column;
         }
       }
     </style>
@@ -233,14 +249,14 @@
       </div>
     </div>
     <script>
-      const TBC_LINK = "https://example.com/tbc"; // сюда потом подставим настоящую ссылку
-      const SBP_LINK = "https://example.com/sbp"; // ссылка для СБП
-      const CREDO_RECEIVER = "Получатель: Имя Фамилия";
-      const CREDO_BANK = "Банк: Credo Bank";
-      const CREDO_IBAN = "IBAN: GE00XXXX...";
-      const CREDO_PURPOSE = "Назначение платежа: пожертвование храму";
-      const CRYPTO_NETWORK = "TRON (TRC20)";
-      const CRYPTO_ADDRESS = "TXXXXXXX..."; // криптоадрес
+      const TBC_LINK = "https://example.com/tbc"; // Подставьте реальную ссылку оплаты в TBC
+      const SBP_LINK = "https://example.com/sbp"; // Подставьте реальную ссылку для СБП
+      const CREDO_RECEIVER = "Получатель: Имя Фамилия"; // Укажите фактического получателя
+      const CREDO_BANK = "Банк: Credo Bank"; // Укажите фактический банк
+      const CREDO_IBAN = "IBAN: GE00XXXX..."; // Укажите реальный IBAN
+      const CREDO_PURPOSE = "Назначение платежа: пожертвование храму"; // Обновите назначение платежа
+      const CRYPTO_NETWORK = "TRON (TRC20)"; // Укажите используемую сеть перевода
+      const CRYPTO_ADDRESS = "TXXXXXXX..."; // Подставьте реальный криптоадрес
 
       const tbcLink = document.getElementById("tbc-link");
       if (tbcLink) {
