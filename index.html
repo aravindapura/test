@@ -16,7 +16,7 @@
         align-items: center;
         justify-content: center;
         background: #f7f2e9;
-        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         color: #1f1f1f;
         padding: 16px;
       }
@@ -61,23 +61,26 @@
       .btn {
         display: block;
         width: 100%;
-        padding: 15px 16px;
-        font-size: 16px;
+        padding: 16px 18px;
+        font-size: 17px;
         font-weight: 600;
-        color: #1f1f1f;
-        background: #f2efe8;
-        border: 1px solid #e2dacf;
-        border-radius: 12px;
+        color: #121213;
+        background: linear-gradient(180deg, #f7f4ed 0%, #f0eadf 100%);
+        border: 1px solid #e0d6c9;
+        border-radius: 14px;
         text-decoration: none;
         text-align: center;
         cursor: pointer;
         word-break: break-word;
+        box-shadow: 0 3px 10px rgba(33, 33, 52, 0.08);
+        transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
       }
 
       .btn:hover,
       .btn:focus-visible {
-        background: #eae4d9;
-        box-shadow: 0 4px 14px rgba(33, 33, 52, 0.1);
+        background: #ebe4d6;
+        border-color: #d5c8b6;
+        box-shadow: 0 6px 18px rgba(33, 33, 52, 0.12);
         outline: none;
       }
 
@@ -208,7 +211,7 @@
       <div class="actions">
         <a class="btn" id="tbc-link" href="#">Пожертвовать лари на TBC (в один клик)</a>
         <a class="btn" id="credo-button" href="#">Пожертвовать лари на Credo (по реквизитам)</a>
-        <a class="btn" id="sbp-link" href="#">Пожертвовать рубли по СБП</a>
+        <a class="btn" id="sbp-link" href="#">Пожертвовать рубли по СБП (в 1 клик)</a>
         <a class="btn" id="crypto-button" href="#">Пожертвовать криптовалюту</a>
       </div>
     </main>
