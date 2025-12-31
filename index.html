@@ -378,15 +378,8 @@
 
       if (copyCredoButton) {
         copyCredoButton.addEventListener("click", () => {
-          const details = [
-            CREDO_RECEIVER,
-            CREDO_BANK,
-            CREDO_IBAN,
-            CREDO_PURPOSE,
-          ].join(" | ");
-
-          navigator.clipboard.writeText(details).then(() => {
-            alert("Реквизиты скопированы");
+          navigator.clipboard.writeText(CREDO_IBAN).then(() => {
+            alert("IBAN скопирован");
           });
         });
       }
