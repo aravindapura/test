@@ -253,7 +253,7 @@
       const SBP_LINK = "https://finance.ozon.ru/apps/sbp/ozonbankpay/019b7357-1f94-79b2-8448-8b0f55d2915d"; // Реальная ссылка для оплаты по СБП
       const CREDO_RECEIVER = "Получатель: Anatolii Smolin"; // Укажите фактического получателя, если изменится
       const CREDO_BANK = "Банк: Credo Bank"; // Укажите фактический банк при необходимости
-      const CREDO_IBAN = "IBAN: GE25CD0360000060644802"; // Укажите реальный IBAN для Credo
+      const CREDO_IBAN = "GE25CD0360000060644802"; // Укажите реальный IBAN для Credo
       const CREDO_PURPOSE = "Назначение платежа: пожертвование храму"; // Обновите назначение платежа при смене
       const CRYPTO_NETWORK = "TRON (TRC20)"; // Укажите используемую сеть перевода при изменении
       const CRYPTO_ADDRESS = "TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7"; // Реальный криптоадрес для TRC20
@@ -297,7 +297,7 @@
       ) {
         credoReceiver.textContent = CREDO_RECEIVER;
         credoBank.textContent = CREDO_BANK;
-        credoIban.textContent = CREDO_IBAN;
+        credoIban.textContent = `IBAN: ${CREDO_IBAN}`;
         credoPurpose.textContent = CREDO_PURPOSE;
       }
 
