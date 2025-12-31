@@ -193,7 +193,7 @@
         <a class="btn" id="tbc-link" href="#">Пожертвовать лари на TBC (в один клик)</a>
         <a class="btn" id="credo-button" href="#">Пожертвовать лари на Credo (по реквизитам)</a>
         <a class="btn" id="sbp-link" href="#">Пожертвовать рубли по СБП</a>
-        <a class="btn" href="#">Пожертвовать криптовалюту</a>
+        <a class="btn" id="crypto-button" href="#">Пожертвовать криптовалюту</a>
       </div>
     </main>
     <div class="modal-overlay" id="credo-modal">
@@ -216,6 +216,22 @@
         </div>
       </div>
     </div>
+    <div class="modal-overlay" id="crypto-modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="crypto-modal-title">
+        <button class="modal__close" type="button" aria-label="Закрыть" id="crypto-modal-close">
+          ×
+        </button>
+        <h2 class="modal__title" id="crypto-modal-title">Криптовалютный адрес для пожертвований</h2>
+        <ul class="modal__list">
+          <li id="crypto-network">Сеть: TRON (TRC20)</li>
+          <li id="crypto-address">USDT TRC20: TXXXXXXX...</li>
+        </ul>
+        <div class="modal__actions">
+          <button class="btn btn--primary" type="button" id="copy-crypto">Скопировать адрес</button>
+          <button class="btn" type="button" id="close-crypto">Закрыть</button>
+        </div>
+      </div>
+    </div>
     <script>
       const TBC_LINK = "https://example.com/tbc"; // сюда потом подставим настоящую ссылку
       const SBP_LINK = "https://example.com/sbp"; // ссылка для СБП
@@ -223,6 +239,8 @@
       const CREDO_BANK = "Банк: Credo Bank";
       const CREDO_IBAN = "IBAN: GE00XXXX...";
       const CREDO_PURPOSE = "Назначение платежа: пожертвование храму";
+      const CRYPTO_NETWORK = "TRON (TRC20)";
+      const CRYPTO_ADDRESS = "TXXXXXXX..."; // криптоадрес
 
       const tbcLink = document.getElementById("tbc-link");
       if (tbcLink) {
@@ -247,6 +265,13 @@
       const credoBank = document.getElementById("credo-bank");
       const credoIban = document.getElementById("credo-iban");
       const credoPurpose = document.getElementById("credo-purpose");
+      const cryptoButton = document.getElementById("crypto-button");
+      const cryptoModal = document.getElementById("crypto-modal");
+      const cryptoModalClose = document.getElementById("crypto-modal-close");
+      const cryptoModalCloseSecondary = document.getElementById("close-crypto");
+      const cryptoNetwork = document.getElementById("crypto-network");
+      const cryptoAddress = document.getElementById("crypto-address");
+      const copyCryptoButton = document.getElementById("copy-crypto");
 
       if (
         credoReceiver &&
@@ -258,6 +283,11 @@
         credoBank.textContent = CREDO_BANK;
         credoIban.textContent = CREDO_IBAN;
         credoPurpose.textContent = CREDO_PURPOSE;
+      }
+
+      if (cryptoNetwork && cryptoAddress) {
+        cryptoNetwork.textContent = `Сеть: ${CRYPTO_NETWORK}`;
+        cryptoAddress.textContent = `USDT TRC20: ${CRYPTO_ADDRESS}`;
       }
 
       const openCredoModal = () => {
@@ -272,10 +302,29 @@
         }
       };
 
+      const openCryptoModal = () => {
+        if (cryptoModal) {
+          cryptoModal.classList.add("is-visible");
+        }
+      };
+
+      const closeCryptoModal = () => {
+        if (cryptoModal) {
+          cryptoModal.classList.remove("is-visible");
+        }
+      };
+
       if (credoButton) {
         credoButton.addEventListener("click", (event) => {
           event.preventDefault();
           openCredoModal();
+        });
+      }
+
+      if (cryptoButton) {
+        cryptoButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openCryptoModal();
         });
       }
 
@@ -287,10 +336,26 @@
         credoModalCloseSecondary.addEventListener("click", closeCredoModal);
       }
 
+      if (cryptoModalClose) {
+        cryptoModalClose.addEventListener("click", closeCryptoModal);
+      }
+
+      if (cryptoModalCloseSecondary) {
+        cryptoModalCloseSecondary.addEventListener("click", closeCryptoModal);
+      }
+
       if (credoModal) {
         credoModal.addEventListener("click", (event) => {
           if (event.target === credoModal) {
             closeCredoModal();
+          }
+        });
+      }
+
+      if (cryptoModal) {
+        cryptoModal.addEventListener("click", (event) => {
+          if (event.target === cryptoModal) {
+            closeCryptoModal();
           }
         });
       }
@@ -306,6 +371,14 @@
 
           navigator.clipboard.writeText(details).then(() => {
             alert("Реквизиты скопированы");
+          });
+        });
+      }
+
+      if (copyCryptoButton) {
+        copyCryptoButton.addEventListener("click", () => {
+          navigator.clipboard.writeText(CRYPTO_ADDRESS).then(() => {
+            alert("Адрес скопирован");
           });
         });
       }
