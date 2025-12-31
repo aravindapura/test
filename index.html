@@ -104,11 +104,29 @@
         пожертвования ниже.
       </p>
       <div class="actions">
-        <a class="btn" href="#">Пожертвовать лари на TBC (в один клик)</a>
+        <a class="btn" id="tbc-link" href="#">Пожертвовать лари на TBC (в один клик)</a>
         <a class="btn" href="#">Пожертвовать лари на Credo (по реквизитам)</a>
-        <a class="btn" href="#">Пожертвовать рубли по СБП</a>
+        <a class="btn" id="sbp-link" href="#">Пожертвовать рубли по СБП</a>
         <a class="btn" href="#">Пожертвовать криптовалюту</a>
       </div>
     </main>
+    <script>
+      const TBC_LINK = "https://example.com/tbc"; // сюда потом подставим настоящую ссылку
+      const SBP_LINK = "https://example.com/sbp"; // ссылка для СБП
+
+      const tbcLink = document.getElementById("tbc-link");
+      if (tbcLink) {
+        tbcLink.href = TBC_LINK;
+        tbcLink.target = "_blank";
+        tbcLink.rel = "noopener noreferrer";
+      }
+
+      const sbpLink = document.getElementById("sbp-link");
+      if (sbpLink) {
+        sbpLink.href = SBP_LINK;
+        sbpLink.target = "_blank";
+        sbpLink.rel = "noopener noreferrer";
+      }
+    </script>
   </body>
 </html>
