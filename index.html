@@ -31,6 +31,41 @@
         text-align: center;
       }
 
+      .lang-switch {
+        display: inline-flex;
+        gap: 10px;
+        justify-content: center;
+        margin: 0 0 12px;
+      }
+
+      .lang-btn {
+        border: 1px solid #e0d6c9;
+        background: #f7f4ed;
+        color: #121213;
+        padding: 8px 12px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(33, 33, 52, 0.08);
+        transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      }
+
+      .lang-btn:hover,
+      .lang-btn:focus-visible {
+        background: #ebe4d6;
+        border-color: #d5c8b6;
+        box-shadow: 0 4px 10px rgba(33, 33, 52, 0.12);
+        outline: none;
+      }
+
+      .lang-btn--active {
+        background: #2f80ed;
+        border-color: #2f80ed;
+        color: #ffffff;
+        box-shadow: 0 6px 14px rgba(47, 128, 237, 0.35);
+      }
+
       .card__overline {
         margin: 0 0 12px;
         font-size: 14px;
@@ -217,6 +252,10 @@
   </head>
   <body>
     <main class="card">
+      <div class="lang-switch" aria-label="Переключение языка">
+        <button class="lang-btn lang-btn--active" type="button" data-lang="ru">🇷🇺 Рус</button>
+        <button class="lang-btn" type="button" data-lang="en">🇬🇧 Eng</button>
+      </div>
       <p class="card__overline">HARE KRISHNA Batumi</p>
       <h1>ISKCON Centre</h1>
       <p class="subtitle">
@@ -279,14 +318,14 @@
         </button>
         <h2 class="modal__title" id="question-modal-title">Связаться с нами</h2>
         <ul class="modal__list">
-          <li>Вы можете задать вопрос удобным способом:</li>
+          <li id="question-intro">Вы можете задать вопрос удобным способом:</li>
           <li>
-            <a class="btn" href="https://t.me/aravinda108" target="_blank" rel="noopener noreferrer">
+            <a class="btn" id="question-telegram" href="https://t.me/aravinda108" target="_blank" rel="noopener noreferrer">
               Написать в Telegram
             </a>
           </li>
           <li>
-            <a class="btn" href="https://wa.me/79324169924" target="_blank" rel="noopener noreferrer">
+            <a class="btn" id="question-whatsapp" href="https://wa.me/79324169924" target="_blank" rel="noopener noreferrer">
               Написать в WhatsApp
             </a>
           </li>
@@ -299,29 +338,94 @@
     <script>
       const TBC_LINK = "https://tbconline.ge/MB/TT/GE91TB7070345061200005"; // Реальная ссылка оплаты TBC
       const SBP_LINK = "https://finance.ozon.ru/apps/sbp/ozonbankpay/019b7357-1f94-79b2-8448-8b0f55d2915d"; // Реальная ссылка для оплаты по СБП
-      const CREDO_RECEIVER = "Получатель: Anatolii Smolin"; // Укажите фактического получателя, если изменится
-      const CREDO_BANK = "Банк: Credo Bank"; // Укажите фактический банк при необходимости
+      const CREDO_RECEIVER = "Anatolii Smolin"; // Укажите фактического получателя, если изменится
+      const CREDO_BANK = "Credo Bank"; // Укажите фактический банк при необходимости
       const CREDO_IBAN = "GE25CD0360000060644802"; // Укажите реальный IBAN для Credo
-      const CREDO_PURPOSE = "Назначение платежа: пожертвование храму"; // Обновите назначение платежа при смене
+      const CREDO_PURPOSE_RU = "пожертвование храму"; // Обновите назначение платежа на русском
+      const CREDO_PURPOSE_EN = "donation to the temple"; // Обновите назначение платежа на английском при смене
       const CRYPTO_NETWORK = "TRON (TRC20)"; // Укажите используемую сеть перевода при изменении
       const CRYPTO_ADDRESS = "TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7"; // Реальный криптоадрес для TRC20
       const QUESTION_TELEGRAM = "https://t.me/aravinda108"; // Ссылка для связи в Telegram
       const QUESTION_WHATSAPP = "https://wa.me/79324169924"; // Ссылка для связи в WhatsApp
 
+      const translations = {
+        ru: {
+          overline: "HARE KRISHNA Batumi",
+          title: "ISKCON Centre",
+          subtitle:
+            "Если вы хотите принять финансовое участие в жизни храма, вы можете выбрать удобный для вас способ для пожертвований.",
+          buttons: {
+            tbc: "Пожертвовать лари на TBC (в один клик)",
+            credo: "Пожертвовать лари на Credo (по реквизитам)",
+            sbp: "Пожертвовать рубли по СБП (в один клик)",
+            crypto: "Пожертвовать криптовалюту",
+            question: "Задать вопрос",
+          },
+          credoTitle: "Реквизиты Credo Bank",
+          credoReceiverLabel: "Получатель:",
+          credoBankLabel: "Банк:",
+          credoIbanLabel: "IBAN:",
+          credoPurposeLabel: "Назначение платежа:",
+          credoPurposeValue: CREDO_PURPOSE_RU,
+          credoCopy: "Скопировать реквизиты",
+          close: "Закрыть",
+          cryptoTitle: "Криптовалютный адрес для пожертвований",
+          cryptoNetworkLabel: "Сеть:",
+          cryptoAddressLabel: "USDT TRC20:",
+          cryptoCopy: "Скопировать адрес",
+          questionTitle: "Связаться с нами",
+          questionIntro: "Вы можете задать вопрос удобным способом:",
+          questionTelegram: "Написать в Telegram",
+          questionWhatsApp: "Написать в WhatsApp",
+          credoAlert: "IBAN скопирован",
+          cryptoAlert: "Адрес скопирован",
+          footerLines: [
+            "Шри Шри Нитьянанда Гауранга Махабхава Расарадж ки джай",
+            "Шри Джаганат Баладев Субхадра ки джай",
+            "Шрила Прабхупада ки джай",
+          ],
+        },
+        en: {
+          overline: "HARE KRISHNA Batumi",
+          title: "ISKCON Centre",
+          subtitle:
+            "If you would like to support the temple, please choose the most convenient donation method.",
+          buttons: {
+            tbc: "Donate GEL via TBC (one click)",
+            credo: "Donate GEL via Credo (bank details)",
+            sbp: "Donate RUB via SBP (one click)",
+            crypto: "Donate cryptocurrency",
+            question: "Ask a question",
+          },
+          credoTitle: "Credo Bank details",
+          credoReceiverLabel: "Recipient:",
+          credoBankLabel: "Bank:",
+          credoIbanLabel: "IBAN:",
+          credoPurposeLabel: "Payment purpose:",
+          credoPurposeValue: CREDO_PURPOSE_EN,
+          credoCopy: "Copy details",
+          close: "Close",
+          cryptoTitle: "Cryptocurrency donation address",
+          cryptoNetworkLabel: "Network:",
+          cryptoAddressLabel: "USDT TRC20:",
+          cryptoCopy: "Copy address",
+          questionTitle: "Contact us",
+          questionIntro: "You can reach out in a way that suits you:",
+          questionTelegram: "Message on Telegram",
+          questionWhatsApp: "Message on WhatsApp",
+          credoAlert: "IBAN copied",
+          cryptoAlert: "Address copied",
+          footerLines: [
+            "Sri Sri Nityananda Gauranga Mahabhava Rasaraj ki jai",
+            "Sri Jagannath Baladeva Subhadra ki jai",
+            "Srila Prabhupada ki jai",
+          ],
+        },
+      };
+
+      const langButtons = document.querySelectorAll(".lang-btn");
       const tbcLink = document.getElementById("tbc-link");
-      if (tbcLink) {
-        tbcLink.href = TBC_LINK;
-        tbcLink.target = "_blank";
-        tbcLink.rel = "noopener noreferrer";
-      }
-
       const sbpLink = document.getElementById("sbp-link");
-      if (sbpLink) {
-        sbpLink.href = SBP_LINK;
-        sbpLink.target = "_blank";
-        sbpLink.rel = "noopener noreferrer";
-      }
-
       const credoButton = document.getElementById("credo-button");
       const credoModal = document.getElementById("credo-modal");
       const credoModalClose = document.getElementById("credo-modal-close");
@@ -342,24 +446,28 @@
       const questionModal = document.getElementById("question-modal");
       const questionModalClose = document.getElementById("question-modal-close");
       const questionModalCloseSecondary = document.getElementById("close-question");
-      const questionTelegramLink = questionModal?.querySelector('a[href*="t.me"]');
-      const questionWhatsAppLink = questionModal?.querySelector('a[href*="wa.me"]');
+      const questionTelegramLink = document.getElementById("question-telegram");
+      const questionWhatsAppLink = document.getElementById("question-whatsapp");
+      const cardOverline = document.querySelector(".card__overline");
+      const cardTitle = document.querySelector("h1");
+      const subtitle = document.querySelector(".subtitle");
+      const credoModalTitle = document.getElementById("credo-modal-title");
+      const cryptoModalTitle = document.getElementById("crypto-modal-title");
+      const questionModalTitle = document.getElementById("question-modal-title");
+      const questionIntro = document.getElementById("question-intro");
+      const footerLines = document.querySelectorAll(".footer-lines p");
+      let currentLang = "ru";
 
-      if (
-        credoReceiver &&
-        credoBank &&
-        credoIban &&
-        credoPurpose
-      ) {
-        credoReceiver.textContent = CREDO_RECEIVER;
-        credoBank.textContent = CREDO_BANK;
-        credoIban.textContent = `IBAN: ${CREDO_IBAN}`;
-        credoPurpose.textContent = CREDO_PURPOSE;
+      if (tbcLink) {
+        tbcLink.href = TBC_LINK;
+        tbcLink.target = "_blank";
+        tbcLink.rel = "noopener noreferrer";
       }
 
-      if (cryptoNetwork && cryptoAddress) {
-        cryptoNetwork.textContent = `Сеть: ${CRYPTO_NETWORK}`;
-        cryptoAddress.textContent = `USDT TRC20: ${CRYPTO_ADDRESS}`;
+      if (sbpLink) {
+        sbpLink.href = SBP_LINK;
+        sbpLink.target = "_blank";
+        sbpLink.rel = "noopener noreferrer";
       }
 
       if (questionTelegramLink) {
@@ -369,6 +477,67 @@
       if (questionWhatsAppLink) {
         questionWhatsAppLink.href = QUESTION_WHATSAPP;
       }
+
+      const setActiveLangButton = (lang) => {
+        langButtons.forEach((button) => {
+          if (button.dataset.lang === lang) {
+            button.classList.add("lang-btn--active");
+          } else {
+            button.classList.remove("lang-btn--active");
+          }
+        });
+      };
+
+      const setLanguage = (lang) => {
+        if (!translations[lang]) return;
+        currentLang = lang;
+        const t = translations[lang];
+        document.documentElement.lang = lang;
+
+        if (cardOverline) cardOverline.textContent = t.overline;
+        if (cardTitle) cardTitle.textContent = t.title;
+        if (subtitle) subtitle.textContent = t.subtitle;
+
+        if (tbcLink) tbcLink.textContent = t.buttons.tbc;
+        if (credoButton) credoButton.textContent = t.buttons.credo;
+        if (sbpLink) sbpLink.textContent = t.buttons.sbp;
+        if (cryptoButton) cryptoButton.textContent = t.buttons.crypto;
+        if (questionButton) questionButton.textContent = t.buttons.question;
+
+        if (credoModalTitle) credoModalTitle.textContent = t.credoTitle;
+        if (credoReceiver) credoReceiver.textContent = `${t.credoReceiverLabel} ${CREDO_RECEIVER}`;
+        if (credoBank) credoBank.textContent = `${t.credoBankLabel} ${CREDO_BANK}`;
+        if (credoIban) credoIban.textContent = `${t.credoIbanLabel} ${CREDO_IBAN}`;
+        if (credoPurpose) credoPurpose.textContent = `${t.credoPurposeLabel} ${t.credoPurposeValue}`;
+        if (copyCredoButton) copyCredoButton.textContent = t.credoCopy;
+        if (credoModalCloseSecondary) credoModalCloseSecondary.textContent = t.close;
+
+        if (cryptoModalTitle) cryptoModalTitle.textContent = t.cryptoTitle;
+        if (cryptoNetwork) cryptoNetwork.textContent = `${t.cryptoNetworkLabel} ${CRYPTO_NETWORK}`;
+        if (cryptoAddress) cryptoAddress.textContent = `${t.cryptoAddressLabel} ${CRYPTO_ADDRESS}`;
+        if (copyCryptoButton) copyCryptoButton.textContent = t.cryptoCopy;
+        if (cryptoModalCloseSecondary) cryptoModalCloseSecondary.textContent = t.close;
+
+        if (questionModalTitle) questionModalTitle.textContent = t.questionTitle;
+        if (questionIntro) questionIntro.textContent = t.questionIntro;
+        if (questionTelegramLink) questionTelegramLink.textContent = t.questionTelegram;
+        if (questionWhatsAppLink) questionWhatsAppLink.textContent = t.questionWhatsApp;
+        if (questionModalCloseSecondary) questionModalCloseSecondary.textContent = t.close;
+
+        if (footerLines?.length) {
+          footerLines.forEach((line, index) => {
+            if (t.footerLines[index]) {
+              line.textContent = t.footerLines[index];
+            }
+          });
+        }
+
+        setActiveLangButton(lang);
+      };
+
+      setLanguage(currentLang);
+
+      const getText = (key) => translations[currentLang]?.[key] || translations.ru[key];
 
       const openCredoModal = () => {
         if (credoModal) {
@@ -410,6 +579,14 @@
         credoButton.addEventListener("click", (event) => {
           event.preventDefault();
           openCredoModal();
+        });
+      }
+
+      if (langButtons.length) {
+        langButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            setLanguage(button.dataset.lang);
+          });
         });
       }
 
@@ -478,7 +655,7 @@
       if (copyCredoButton) {
         copyCredoButton.addEventListener("click", () => {
           navigator.clipboard.writeText(CREDO_IBAN).then(() => {
-            alert("IBAN скопирован");
+            alert(getText("credoAlert"));
           });
         });
       }
@@ -486,7 +663,7 @@
       if (copyCryptoButton) {
         copyCryptoButton.addEventListener("click", () => {
           navigator.clipboard.writeText(CRYPTO_ADDRESS).then(() => {
-            alert("Адрес скопирован");
+            alert(getText("cryptoAlert"));
           });
         });
       }
