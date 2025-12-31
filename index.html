@@ -219,9 +219,9 @@
         </button>
         <h2 class="modal__title" id="credo-modal-title">Реквизиты Credo Bank</h2>
         <ul class="modal__list">
-          <li id="credo-receiver">Получатель: Имя Фамилия</li>
+          <li id="credo-receiver">Получатель: Anatolii Smolin</li>
           <li id="credo-bank">Банк: Credo Bank</li>
-          <li id="credo-iban">IBAN: GE00XXXX...</li>
+          <li id="credo-iban">IBAN: GE25CD0360000060644802</li>
           <li id="credo-purpose">Назначение платежа: пожертвование храму</li>
         </ul>
         <div class="modal__actions">
@@ -240,7 +240,7 @@
         <h2 class="modal__title" id="crypto-modal-title">Криптовалютный адрес для пожертвований</h2>
         <ul class="modal__list">
           <li id="crypto-network">Сеть: TRON (TRC20)</li>
-          <li id="crypto-address">USDT TRC20: TXXXXXXX...</li>
+          <li id="crypto-address">USDT TRC20: TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7</li>
         </ul>
         <div class="modal__actions">
           <button class="btn btn--primary" type="button" id="copy-crypto">Скопировать адрес</button>
@@ -249,14 +249,14 @@
       </div>
     </div>
     <script>
-      const TBC_LINK = "https://example.com/tbc"; // Подставьте реальную ссылку оплаты в TBC
-      const SBP_LINK = "https://example.com/sbp"; // Подставьте реальную ссылку для СБП
-      const CREDO_RECEIVER = "Получатель: Имя Фамилия"; // Укажите фактического получателя
-      const CREDO_BANK = "Банк: Credo Bank"; // Укажите фактический банк
-      const CREDO_IBAN = "IBAN: GE00XXXX..."; // Укажите реальный IBAN
-      const CREDO_PURPOSE = "Назначение платежа: пожертвование храму"; // Обновите назначение платежа
-      const CRYPTO_NETWORK = "TRON (TRC20)"; // Укажите используемую сеть перевода
-      const CRYPTO_ADDRESS = "TXXXXXXX..."; // Подставьте реальный криптоадрес
+      const TBC_LINK = "https://tbconline.ge/MB/TT/GE91TB7070345061200005"; // Реальная ссылка оплаты TBC
+      const SBP_LINK = "https://example.com/sbp"; // Подставьте реальную ссылку для СБП при обновлении
+      const CREDO_RECEIVER = "Получатель: Anatolii Smolin"; // Укажите фактического получателя, если изменится
+      const CREDO_BANK = "Банк: Credo Bank"; // Укажите фактический банк при необходимости
+      const CREDO_IBAN = "IBAN: GE25CD0360000060644802"; // Укажите реальный IBAN для Credo
+      const CREDO_PURPOSE = "Назначение платежа: пожертвование храму"; // Обновите назначение платежа при смене
+      const CRYPTO_NETWORK = "TRON (TRC20)"; // Укажите используемую сеть перевода при изменении
+      const CRYPTO_ADDRESS = "TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7"; // Реальный криптоадрес для TRC20
 
       const tbcLink = document.getElementById("tbc-link");
       if (tbcLink) {
