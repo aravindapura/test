@@ -111,7 +111,7 @@
       .btn {
         display: block;
         width: 100%;
-        padding: 16px 18px;
+        padding: 14px 18px;
         font-size: 17px;
         font-weight: 600;
         color: #121213;
@@ -124,6 +124,18 @@
         word-break: break-word;
         box-shadow: 0 3px 10px rgba(33, 33, 52, 0.08);
         transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      }
+
+      .btn__label {
+        display: block;
+      }
+
+      .btn__note {
+        display: block;
+        margin-top: 4px;
+        font-size: 14px;
+        font-weight: 400;
+        color: #3c3d45;
       }
 
       .btn:hover,
@@ -263,11 +275,24 @@
         для вас способ для пожертвований.
       </p>
       <div class="actions">
-        <a class="btn" id="tbc-link" href="#">Пожертвовать лари на TBC (в один клик)</a>
-        <a class="btn" id="credo-button" href="#">Пожертвовать лари на Credo (по реквизитам)</a>
-        <a class="btn" id="sbp-link" href="#">Пожертвовать рубли по СБП (в один клик)</a>
-        <a class="btn" id="crypto-button" href="#">Пожертвовать криптовалюту</a>
-        <a class="btn" id="question-button" href="#">Задать вопрос</a>
+        <a class="btn" id="tbc-link" href="#">
+          <span class="btn__label" id="tbc-label">Пожертвовать лари на TBC</span>
+          <span class="btn__note" id="tbc-note">в один клик</span>
+        </a>
+        <a class="btn" id="credo-button" href="#">
+          <span class="btn__label" id="credo-label">Пожертвовать лари на Credo</span>
+          <span class="btn__note" id="credo-note">по реквизитам</span>
+        </a>
+        <a class="btn" id="sbp-link" href="#">
+          <span class="btn__label" id="sbp-label">Пожертвовать рубли по СБП</span>
+          <span class="btn__note" id="sbp-note">в один клик</span>
+        </a>
+        <a class="btn" id="crypto-button" href="#">
+          <span class="btn__label" id="crypto-label">Пожертвовать криптовалюту</span>
+        </a>
+        <a class="btn" id="question-button" href="#">
+          <span class="btn__label" id="question-label">Задать вопрос</span>
+        </a>
       </div>
       <div class="footer-lines">
         <p>Шри Шри Нитьянанда Гауранга Махабхава Расарадж ки джай</p>
@@ -355,11 +380,11 @@
           subtitle:
             "Если вы хотите принять финансовое участие в жизни храма, вы можете выбрать удобный для вас способ для пожертвований.",
           buttons: {
-            tbc: "Пожертвовать лари на TBC (в один клик)",
-            credo: "Пожертвовать лари на Credo (по реквизитам)",
-            sbp: "Пожертвовать рубли по СБП (в один клик)",
-            crypto: "Пожертвовать криптовалюту",
-            question: "Задать вопрос",
+            tbc: { label: "Пожертвовать лари на TBC", note: "в один клик" },
+            credo: { label: "Пожертвовать лари на Credo", note: "по реквизитам" },
+            sbp: { label: "Пожертвовать рубли по СБП", note: "в один клик" },
+            crypto: { label: "Пожертвовать криптовалюту" },
+            question: { label: "Задать вопрос" },
           },
           credoTitle: "Реквизиты Credo Bank",
           credoReceiverLabel: "Получатель:",
@@ -391,11 +416,11 @@
           subtitle:
             "If you would like to support the temple, please choose the most convenient donation method.",
           buttons: {
-            tbc: "Donate GEL via TBC (one click)",
-            credo: "Donate GEL via Credo (bank details)",
-            sbp: "Donate RUB via SBP (one click)",
-            crypto: "Donate cryptocurrency",
-            question: "Ask a question",
+            tbc: { label: "Donate GEL via TBC", note: "one click" },
+            credo: { label: "Donate GEL via Credo", note: "bank details" },
+            sbp: { label: "Donate RUB via SBP", note: "one click" },
+            crypto: { label: "Donate cryptocurrency" },
+            question: { label: "Ask a question" },
           },
           credoTitle: "Credo Bank details",
           credoReceiverLabel: "Recipient:",
@@ -425,8 +450,14 @@
 
       const langButtons = document.querySelectorAll(".lang-btn");
       const tbcLink = document.getElementById("tbc-link");
+      const tbcLabel = document.getElementById("tbc-label");
+      const tbcNote = document.getElementById("tbc-note");
       const sbpLink = document.getElementById("sbp-link");
+      const sbpLabel = document.getElementById("sbp-label");
+      const sbpNote = document.getElementById("sbp-note");
       const credoButton = document.getElementById("credo-button");
+      const credoLabel = document.getElementById("credo-label");
+      const credoNote = document.getElementById("credo-note");
       const credoModal = document.getElementById("credo-modal");
       const credoModalClose = document.getElementById("credo-modal-close");
       const credoModalCloseSecondary = document.getElementById("close-credo");
@@ -436,6 +467,7 @@
       const credoIban = document.getElementById("credo-iban");
       const credoPurpose = document.getElementById("credo-purpose");
       const cryptoButton = document.getElementById("crypto-button");
+      const cryptoLabel = document.getElementById("crypto-label");
       const cryptoModal = document.getElementById("crypto-modal");
       const cryptoModalClose = document.getElementById("crypto-modal-close");
       const cryptoModalCloseSecondary = document.getElementById("close-crypto");
@@ -443,6 +475,7 @@
       const cryptoAddress = document.getElementById("crypto-address");
       const copyCryptoButton = document.getElementById("copy-crypto");
       const questionButton = document.getElementById("question-button");
+      const questionLabel = document.getElementById("question-label");
       const questionModal = document.getElementById("question-modal");
       const questionModalClose = document.getElementById("question-modal-close");
       const questionModalCloseSecondary = document.getElementById("close-question");
@@ -488,6 +521,22 @@
         });
       };
 
+      const setButtonText = (config, labelEl, noteEl) => {
+        if (labelEl && config?.label) {
+          labelEl.textContent = config.label;
+        }
+
+        if (noteEl) {
+          if (config?.note) {
+            noteEl.textContent = config.note;
+            noteEl.style.display = "block";
+          } else {
+            noteEl.textContent = "";
+            noteEl.style.display = "none";
+          }
+        }
+      };
+
       const setLanguage = (lang) => {
         if (!translations[lang]) return;
         currentLang = lang;
@@ -498,11 +547,11 @@
         if (cardTitle) cardTitle.textContent = t.title;
         if (subtitle) subtitle.textContent = t.subtitle;
 
-        if (tbcLink) tbcLink.textContent = t.buttons.tbc;
-        if (credoButton) credoButton.textContent = t.buttons.credo;
-        if (sbpLink) sbpLink.textContent = t.buttons.sbp;
-        if (cryptoButton) cryptoButton.textContent = t.buttons.crypto;
-        if (questionButton) questionButton.textContent = t.buttons.question;
+        setButtonText(t.buttons.tbc, tbcLabel, tbcNote);
+        setButtonText(t.buttons.credo, credoLabel, credoNote);
+        setButtonText(t.buttons.sbp, sbpLabel, sbpNote);
+        setButtonText(t.buttons.crypto, cryptoLabel);
+        setButtonText(t.buttons.question, questionLabel);
 
         if (credoModalTitle) credoModalTitle.textContent = t.credoTitle;
         if (credoReceiver) credoReceiver.textContent = `${t.credoReceiverLabel} ${CREDO_RECEIVER}`;
