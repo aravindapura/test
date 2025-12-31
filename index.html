@@ -58,6 +58,21 @@
         gap: 14px;
       }
 
+      .footer-lines {
+        margin-top: 28px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #4a4b52;
+      }
+
+      .footer-lines p {
+        margin: 0;
+      }
+
+      .footer-lines p + p {
+        margin-top: 6px;
+      }
+
       .btn {
         display: block;
         width: 100%;
@@ -202,8 +217,8 @@
   </head>
   <body>
     <main class="card">
-      <p class="card__overline">Харе Кришна Батуми</p>
-      <h1>Храм Шри-Шри Нитьянанда Гауранга Махабхава Расараджа и Шри Джаганатх</h1>
+      <p class="card__overline">HARE KRISHNA Batumi</p>
+      <h1>ISKCON Centre</h1>
       <p class="subtitle">
         Если вы хотите принять финансовое участие в жизни храма, вы можете выбрать удобный
         для вас способ для пожертвований.
@@ -213,6 +228,12 @@
         <a class="btn" id="credo-button" href="#">Пожертвовать лари на Credo (по реквизитам)</a>
         <a class="btn" id="sbp-link" href="#">Пожертвовать рубли по СБП (в один клик)</a>
         <a class="btn" id="crypto-button" href="#">Пожертвовать криптовалюту</a>
+        <a class="btn" id="question-button" href="#">Задать вопрос</a>
+      </div>
+      <div class="footer-lines">
+        <p>Шри Шри Нитьянанда Гауранга Махабхава Расарадж ки джай</p>
+        <p>Шри Джаганат Баладев Субхадра ки джай</p>
+        <p>Шрила Прабхупада ки джай</p>
       </div>
     </main>
     <div class="modal-overlay" id="credo-modal">
@@ -251,6 +272,30 @@
         </div>
       </div>
     </div>
+    <div class="modal-overlay" id="question-modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="question-modal-title">
+        <button class="modal__close" type="button" aria-label="Закрыть" id="question-modal-close">
+          ×
+        </button>
+        <h2 class="modal__title" id="question-modal-title">Связаться с нами</h2>
+        <ul class="modal__list">
+          <li>Вы можете задать вопрос удобным способом:</li>
+          <li>
+            <a class="btn" href="https://t.me/aravinda108" target="_blank" rel="noopener noreferrer">
+              Написать в Telegram
+            </a>
+          </li>
+          <li>
+            <a class="btn" href="https://wa.me/79324169924" target="_blank" rel="noopener noreferrer">
+              Написать в WhatsApp
+            </a>
+          </li>
+        </ul>
+        <div class="modal__actions">
+          <button class="btn" type="button" id="close-question">Закрыть</button>
+        </div>
+      </div>
+    </div>
     <script>
       const TBC_LINK = "https://tbconline.ge/MB/TT/GE91TB7070345061200005"; // Реальная ссылка оплаты TBC
       const SBP_LINK = "https://finance.ozon.ru/apps/sbp/ozonbankpay/019b7357-1f94-79b2-8448-8b0f55d2915d"; // Реальная ссылка для оплаты по СБП
@@ -260,6 +305,8 @@
       const CREDO_PURPOSE = "Назначение платежа: пожертвование храму"; // Обновите назначение платежа при смене
       const CRYPTO_NETWORK = "TRON (TRC20)"; // Укажите используемую сеть перевода при изменении
       const CRYPTO_ADDRESS = "TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7"; // Реальный криптоадрес для TRC20
+      const QUESTION_TELEGRAM = "https://t.me/aravinda108"; // Ссылка для связи в Telegram
+      const QUESTION_WHATSAPP = "https://wa.me/79324169924"; // Ссылка для связи в WhatsApp
 
       const tbcLink = document.getElementById("tbc-link");
       if (tbcLink) {
@@ -291,6 +338,12 @@
       const cryptoNetwork = document.getElementById("crypto-network");
       const cryptoAddress = document.getElementById("crypto-address");
       const copyCryptoButton = document.getElementById("copy-crypto");
+      const questionButton = document.getElementById("question-button");
+      const questionModal = document.getElementById("question-modal");
+      const questionModalClose = document.getElementById("question-modal-close");
+      const questionModalCloseSecondary = document.getElementById("close-question");
+      const questionTelegramLink = questionModal?.querySelector('a[href*="t.me"]');
+      const questionWhatsAppLink = questionModal?.querySelector('a[href*="wa.me"]');
 
       if (
         credoReceiver &&
@@ -307,6 +360,14 @@
       if (cryptoNetwork && cryptoAddress) {
         cryptoNetwork.textContent = `Сеть: ${CRYPTO_NETWORK}`;
         cryptoAddress.textContent = `USDT TRC20: ${CRYPTO_ADDRESS}`;
+      }
+
+      if (questionTelegramLink) {
+        questionTelegramLink.href = QUESTION_TELEGRAM;
+      }
+
+      if (questionWhatsAppLink) {
+        questionWhatsAppLink.href = QUESTION_WHATSAPP;
       }
 
       const openCredoModal = () => {
@@ -333,6 +394,18 @@
         }
       };
 
+      const openQuestionModal = () => {
+        if (questionModal) {
+          questionModal.classList.add("is-visible");
+        }
+      };
+
+      const closeQuestionModal = () => {
+        if (questionModal) {
+          questionModal.classList.remove("is-visible");
+        }
+      };
+
       if (credoButton) {
         credoButton.addEventListener("click", (event) => {
           event.preventDefault();
@@ -344,6 +417,13 @@
         cryptoButton.addEventListener("click", (event) => {
           event.preventDefault();
           openCryptoModal();
+        });
+      }
+
+      if (questionButton) {
+        questionButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openQuestionModal();
         });
       }
 
@@ -363,6 +443,14 @@
         cryptoModalCloseSecondary.addEventListener("click", closeCryptoModal);
       }
 
+      if (questionModalClose) {
+        questionModalClose.addEventListener("click", closeQuestionModal);
+      }
+
+      if (questionModalCloseSecondary) {
+        questionModalCloseSecondary.addEventListener("click", closeQuestionModal);
+      }
+
       if (credoModal) {
         credoModal.addEventListener("click", (event) => {
           if (event.target === credoModal) {
@@ -375,6 +463,14 @@
         cryptoModal.addEventListener("click", (event) => {
           if (event.target === cryptoModal) {
             closeCryptoModal();
+          }
+        });
+      }
+
+      if (questionModal) {
+        questionModal.addEventListener("click", (event) => {
+          if (event.target === questionModal) {
+            closeQuestionModal();
           }
         });
       }
