@@ -80,6 +80,92 @@
         outline: none;
       }
 
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.45);
+        padding: 16px;
+        z-index: 1000;
+      }
+
+      .modal-overlay.is-visible {
+        display: flex;
+      }
+
+      .modal {
+        background: #ffffff;
+        color: #1f1f1f;
+        width: min(520px, 100%);
+        border-radius: 16px;
+        box-shadow: 0 16px 40px rgba(33, 33, 52, 0.14);
+        padding: 22px 22px 18px;
+        position: relative;
+      }
+
+      .modal__title {
+        margin: 0 0 14px;
+        font-size: 22px;
+        line-height: 1.3;
+        text-align: center;
+      }
+
+      .modal__list {
+        margin: 0 0 18px;
+        padding: 0;
+        list-style: none;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #3c3d45;
+      }
+
+      .modal__list li + li {
+        margin-top: 6px;
+      }
+
+      .modal__actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .modal__close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: #4a4b52;
+        padding: 6px;
+        line-height: 1;
+        border-radius: 8px;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+
+      .modal__close:hover,
+      .modal__close:focus-visible {
+        background: #f0ede7;
+        color: #1f1f1f;
+        outline: none;
+      }
+
+      .btn--primary {
+        background: #2f80ed;
+        color: #ffffff;
+        border-color: #2f80ed;
+      }
+
+      .btn--primary:hover,
+      .btn--primary:focus-visible {
+        background: #2c74d7;
+        box-shadow: 0 8px 20px rgba(47, 128, 237, 0.35);
+        color: #ffffff;
+        outline: none;
+      }
+
       @media (max-width: 480px) {
         .card {
           padding: 28px 22px;
@@ -105,14 +191,38 @@
       </p>
       <div class="actions">
         <a class="btn" id="tbc-link" href="#">Пожертвовать лари на TBC (в один клик)</a>
-        <a class="btn" href="#">Пожертвовать лари на Credo (по реквизитам)</a>
+        <a class="btn" id="credo-button" href="#">Пожертвовать лари на Credo (по реквизитам)</a>
         <a class="btn" id="sbp-link" href="#">Пожертвовать рубли по СБП</a>
         <a class="btn" href="#">Пожертвовать криптовалюту</a>
       </div>
     </main>
+    <div class="modal-overlay" id="credo-modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="credo-modal-title">
+        <button class="modal__close" type="button" aria-label="Закрыть" id="credo-modal-close">
+          ×
+        </button>
+        <h2 class="modal__title" id="credo-modal-title">Реквизиты Credo Bank</h2>
+        <ul class="modal__list">
+          <li id="credo-receiver">Получатель: Имя Фамилия</li>
+          <li id="credo-bank">Банк: Credo Bank</li>
+          <li id="credo-iban">IBAN: GE00XXXX...</li>
+          <li id="credo-purpose">Назначение платежа: пожертвование храму</li>
+        </ul>
+        <div class="modal__actions">
+          <button class="btn btn--primary" type="button" id="copy-credo">
+            Скопировать реквизиты
+          </button>
+          <button class="btn" type="button" id="close-credo">Закрыть</button>
+        </div>
+      </div>
+    </div>
     <script>
       const TBC_LINK = "https://example.com/tbc"; // сюда потом подставим настоящую ссылку
       const SBP_LINK = "https://example.com/sbp"; // ссылка для СБП
+      const CREDO_RECEIVER = "Получатель: Имя Фамилия";
+      const CREDO_BANK = "Банк: Credo Bank";
+      const CREDO_IBAN = "IBAN: GE00XXXX...";
+      const CREDO_PURPOSE = "Назначение платежа: пожертвование храму";
 
       const tbcLink = document.getElementById("tbc-link");
       if (tbcLink) {
@@ -126,6 +236,78 @@
         sbpLink.href = SBP_LINK;
         sbpLink.target = "_blank";
         sbpLink.rel = "noopener noreferrer";
+      }
+
+      const credoButton = document.getElementById("credo-button");
+      const credoModal = document.getElementById("credo-modal");
+      const credoModalClose = document.getElementById("credo-modal-close");
+      const credoModalCloseSecondary = document.getElementById("close-credo");
+      const copyCredoButton = document.getElementById("copy-credo");
+      const credoReceiver = document.getElementById("credo-receiver");
+      const credoBank = document.getElementById("credo-bank");
+      const credoIban = document.getElementById("credo-iban");
+      const credoPurpose = document.getElementById("credo-purpose");
+
+      if (
+        credoReceiver &&
+        credoBank &&
+        credoIban &&
+        credoPurpose
+      ) {
+        credoReceiver.textContent = CREDO_RECEIVER;
+        credoBank.textContent = CREDO_BANK;
+        credoIban.textContent = CREDO_IBAN;
+        credoPurpose.textContent = CREDO_PURPOSE;
+      }
+
+      const openCredoModal = () => {
+        if (credoModal) {
+          credoModal.classList.add("is-visible");
+        }
+      };
+
+      const closeCredoModal = () => {
+        if (credoModal) {
+          credoModal.classList.remove("is-visible");
+        }
+      };
+
+      if (credoButton) {
+        credoButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openCredoModal();
+        });
+      }
+
+      if (credoModalClose) {
+        credoModalClose.addEventListener("click", closeCredoModal);
+      }
+
+      if (credoModalCloseSecondary) {
+        credoModalCloseSecondary.addEventListener("click", closeCredoModal);
+      }
+
+      if (credoModal) {
+        credoModal.addEventListener("click", (event) => {
+          if (event.target === credoModal) {
+            closeCredoModal();
+          }
+        });
+      }
+
+      if (copyCredoButton) {
+        copyCredoButton.addEventListener("click", () => {
+          const details = [
+            CREDO_RECEIVER,
+            CREDO_BANK,
+            CREDO_IBAN,
+            CREDO_PURPOSE,
+          ].join(" | ");
+
+          navigator.clipboard.writeText(details).then(() => {
+            alert("Реквизиты скопированы");
+          });
+        });
       }
     </script>
   </body>
