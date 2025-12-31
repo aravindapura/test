@@ -239,17 +239,45 @@
         outline: none;
       }
 
+      .copy-note {
+        position: fixed;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        background: rgba(33, 33, 52, 0.92);
+        color: #ffffff;
+        padding: 10px 14px;
+        border-radius: 12px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+        line-height: 1.4;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+        z-index: 1500;
+      }
+
+      .copy-note.is-visible {
+        opacity: 1;
+      }
+
       @media (max-width: 480px) {
         .card {
-          padding: 28px 22px;
+          padding: 22px 18px 26px;
         }
 
         h1 {
-          font-size: 24px;
+          font-size: 22px;
+          margin-bottom: 12px;
         }
 
         .subtitle {
           font-size: 15px;
+        }
+
+        .actions {
+          margin-top: 22px;
+          gap: 10px;
         }
 
         .modal {
@@ -343,7 +371,10 @@
         </button>
         <h2 class="modal__title" id="question-modal-title">Связаться с нами</h2>
         <ul class="modal__list">
-          <li id="question-intro">Вы можете задать вопрос удобным способом:</li>
+          <li id="question-intro">
+            Если у вас есть вопросы по пожертвованиям или вы хотите сделать целевое пожертвование,
+            напишите нам
+          </li>
           <li>
             <a class="btn" id="question-telegram" href="https://t.me/aravinda108" target="_blank" rel="noopener noreferrer">
               Написать в Telegram
@@ -360,6 +391,7 @@
         </div>
       </div>
     </div>
+    <div class="copy-note" id="copy-note" role="status" aria-live="polite"></div>
     <script>
       const TBC_LINK = "https://tbconline.ge/MB/TT/GE91TB7070345061200005"; // Реальная ссылка оплаты TBC
       const SBP_LINK = "https://finance.ozon.ru/apps/sbp/ozonbankpay/019b7357-1f94-79b2-8448-8b0f55d2915d"; // Реальная ссылка для оплаты по СБП
@@ -372,6 +404,7 @@
       const CRYPTO_ADDRESS = "TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7"; // Реальный криптоадрес для TRC20
       const QUESTION_TELEGRAM = "https://t.me/aravinda108"; // Ссылка для связи в Telegram
       const QUESTION_WHATSAPP = "https://wa.me/79324169924"; // Ссылка для связи в WhatsApp
+      let copyNoteTimer;
 
       const translations = {
         ru: {
@@ -399,11 +432,11 @@
           cryptoAddressLabel: "USDT TRC20:",
           cryptoCopy: "Скопировать адрес",
           questionTitle: "Связаться с нами",
-          questionIntro: "Вы можете задать вопрос удобным способом:",
+          questionIntro:
+            "Если у вас есть вопросы по пожертвованиям или вы хотите сделать целевое пожертвование, напишите нам",
           questionTelegram: "Написать в Telegram",
           questionWhatsApp: "Написать в WhatsApp",
-          credoAlert: "IBAN скопирован",
-          cryptoAlert: "Адрес скопирован",
+          copyThanks: "Спасибо за ваше служение",
           footerLines: [
             "Шри Шри Нитьянанда Гауранга Махабхава Расарадж ки джай",
             "Шри Джаганат Баладев Субхадра ки джай",
@@ -435,11 +468,11 @@
           cryptoAddressLabel: "USDT TRC20:",
           cryptoCopy: "Copy address",
           questionTitle: "Contact us",
-          questionIntro: "You can reach out in a way that suits you:",
+          questionIntro:
+            "If you have questions about donations or wish to make a targeted offering, please message us.",
           questionTelegram: "Message on Telegram",
           questionWhatsApp: "Message on WhatsApp",
-          credoAlert: "IBAN copied",
-          cryptoAlert: "Address copied",
+          copyThanks: "Thank you for your service",
           footerLines: [
             "Sri Sri Nityananda Gauranga Mahabhava Rasaraj ki jai",
             "Sri Jagannath Baladeva Subhadra ki jai",
@@ -484,6 +517,7 @@
       const cardOverline = document.querySelector(".card__overline");
       const cardTitle = document.querySelector("h1");
       const subtitle = document.querySelector(".subtitle");
+      const copyNote = document.getElementById("copy-note");
       const credoModalTitle = document.getElementById("credo-modal-title");
       const cryptoModalTitle = document.getElementById("crypto-modal-title");
       const questionModalTitle = document.getElementById("question-modal-title");
@@ -587,6 +621,18 @@
       setLanguage(currentLang);
 
       const getText = (key) => translations[currentLang]?.[key] || translations.ru[key];
+
+      const showCopyNote = (message) => {
+        if (!copyNote || !message) return;
+        copyNote.textContent = message;
+        copyNote.classList.add("is-visible");
+        if (copyNoteTimer) {
+          clearTimeout(copyNoteTimer);
+        }
+        copyNoteTimer = setTimeout(() => {
+          copyNote.classList.remove("is-visible");
+        }, 2400);
+      };
 
       const openCredoModal = () => {
         if (credoModal) {
@@ -704,7 +750,7 @@
       if (copyCredoButton) {
         copyCredoButton.addEventListener("click", () => {
           navigator.clipboard.writeText(CREDO_IBAN).then(() => {
-            alert(getText("credoAlert"));
+            showCopyNote(getText("copyThanks"));
           });
         });
       }
@@ -712,7 +758,7 @@
       if (copyCryptoButton) {
         copyCryptoButton.addEventListener("click", () => {
           navigator.clipboard.writeText(CRYPTO_ADDRESS).then(() => {
-            alert(getText("cryptoAlert"));
+            showCopyNote(getText("copyThanks"));
           });
         });
       }
