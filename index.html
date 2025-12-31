@@ -51,6 +51,35 @@
         color: #3c3d45;
       }
 
+      .actions {
+        margin-top: 28px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f1f1f;
+        background: #f2efe8;
+        border: 1px solid #e2dacf;
+        border-radius: 12px;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover,
+      .btn:focus-visible {
+        background: #ebe5da;
+        box-shadow: 0 6px 18px rgba(33, 33, 52, 0.1);
+        outline: none;
+      }
+
       @media (max-width: 480px) {
         .card {
           padding: 28px 22px;
@@ -74,6 +103,12 @@
         Вы можете поддержать храм удобным для вас способом. Пожалуйста, выберите вариант
         пожертвования ниже.
       </p>
+      <div class="actions">
+        <a class="btn" href="#">Пожертвовать лари на TBC (в один клик)</a>
+        <a class="btn" href="#">Пожертвовать лари на Credo (по реквизитам)</a>
+        <a class="btn" href="#">Пожертвовать рубли по СБП</a>
+        <a class="btn" href="#">Пожертвовать криптовалюту</a>
+      </div>
     </main>
   </body>
 </html>
