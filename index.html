@@ -3,251 +3,782 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project Manager / Product Manager — Резюме</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+    <title>Пожертвования Батумскому храму ИСККОН</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f7f2e9;
+        font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: #1f1f1f;
+        padding: 16px;
+      }
+
+      .card {
+        width: min(600px, calc(100vw - 32px));
+        max-width: 580px;
+        background: #ffffff;
+        padding: 32px 28px;
+        border-radius: 18px;
+        box-shadow: 0 12px 35px rgba(33, 33, 52, 0.08);
+        text-align: center;
+      }
+
+      .lang-switch {
+        display: inline-flex;
+        gap: 10px;
+        justify-content: center;
+        margin: 0 0 12px;
+      }
+
+      .lang-btn {
+        border: 1px solid #e0d6c9;
+        background: #f7f4ed;
+        color: #121213;
+        padding: 8px 12px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(33, 33, 52, 0.08);
+        transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      }
+
+      .lang-btn:hover,
+      .lang-btn:focus-visible {
+        background: #ebe4d6;
+        border-color: #d5c8b6;
+        box-shadow: 0 4px 10px rgba(33, 33, 52, 0.12);
+        outline: none;
+      }
+
+      .lang-btn--active {
+        background: #2f80ed;
+        border-color: #2f80ed;
+        color: #ffffff;
+        box-shadow: 0 6px 14px rgba(47, 128, 237, 0.35);
+      }
+
+      .logo {
+        display: flex;
+        justify-content: center;
+        margin: 8px 0 18px;
+      }
+
+      .logo img {
+        display: block;
+        width: min(140px, 40vw);
+        height: auto;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(33, 33, 52, 0.08);
+      }
+
+      .card__overline {
+        margin: 0 0 12px;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+        color: #60616a;
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        font-size: 28px;
+        line-height: 1.3;
+      }
+
+      .subtitle {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.6;
+        color: #3c3d45;
+        word-break: break-word;
+      }
+
+      .actions {
+        margin-top: 28px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .footer-lines {
+        margin-top: 28px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #4a4b52;
+      }
+
+      .footer-lines p {
+        margin: 0;
+      }
+
+      .footer-lines p + p {
+        margin-top: 6px;
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        padding: 14px 18px;
+        font-size: 17px;
+        font-weight: 600;
+        color: #121213;
+        background: linear-gradient(180deg, #f7f4ed 0%, #f0eadf 100%);
+        border: 1px solid #e0d6c9;
+        border-radius: 14px;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        word-break: break-word;
+        box-shadow: 0 3px 10px rgba(33, 33, 52, 0.08);
+        transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      }
+
+      .btn__label {
+        display: block;
+      }
+
+      .btn__note {
+        display: block;
+        margin-top: 4px;
+        font-size: 14px;
+        font-weight: 400;
+        color: #3c3d45;
+      }
+
+      .btn:hover,
+      .btn:focus-visible {
+        background: #ebe4d6;
+        border-color: #d5c8b6;
+        box-shadow: 0 6px 18px rgba(33, 33, 52, 0.12);
+        outline: none;
+      }
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.45);
+        padding: 16px;
+        z-index: 1000;
+      }
+
+      .modal-overlay.is-visible {
+        display: flex;
+      }
+
+      .modal {
+        background: #ffffff;
+        color: #1f1f1f;
+        width: min(520px, calc(100% - 16px));
+        border-radius: 16px;
+        box-shadow: 0 16px 40px rgba(33, 33, 52, 0.14);
+        padding: 22px 22px 18px;
+        position: relative;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal__title {
+        margin: 0 0 14px;
+        font-size: 22px;
+        line-height: 1.3;
+        text-align: center;
+      }
+
+      .modal__list {
+        margin: 0 0 18px;
+        padding: 0;
+        list-style: none;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #3c3d45;
+        word-break: break-word;
+      }
+
+      .modal__list li + li {
+        margin-top: 6px;
+      }
+
+      .modal__actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .modal__actions .btn {
+        flex: 1;
+      }
+
+      .modal__close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: #4a4b52;
+        padding: 6px;
+        line-height: 1;
+        border-radius: 8px;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+
+      .modal__close:hover,
+      .modal__close:focus-visible {
+        background: #f0ede7;
+        color: #1f1f1f;
+        outline: none;
+      }
+
+      .btn--primary {
+        background: #2f80ed;
+        color: #ffffff;
+        border-color: #2f80ed;
+      }
+
+      .btn--primary:hover,
+      .btn--primary:focus-visible {
+        background: #2c74d7;
+        box-shadow: 0 8px 20px rgba(47, 128, 237, 0.35);
+        color: #ffffff;
+        outline: none;
+      }
+
+      .copy-note {
+        position: fixed;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        background: rgba(33, 33, 52, 0.92);
+        color: #ffffff;
+        padding: 10px 14px;
+        border-radius: 12px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+        line-height: 1.4;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+        z-index: 1500;
+      }
+
+      .copy-note.is-visible {
+        opacity: 1;
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          padding: 22px 18px 26px;
+        }
+
+        h1 {
+          font-size: 22px;
+          margin-bottom: 12px;
+        }
+
+        .subtitle {
+          font-size: 15px;
+        }
+
+        .actions {
+          margin-top: 22px;
+          gap: 10px;
+        }
+
+        .modal {
+          width: 100%;
+        }
+
+        .modal__actions {
+          flex-direction: column;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="intro-galaxy">
-      <div class="intro-galaxy__core" aria-hidden="true"></div>
-      <div class="intro-galaxy__ring intro-galaxy__ring--one" aria-hidden="true"></div>
-      <div class="intro-galaxy__ring intro-galaxy__ring--two" aria-hidden="true"></div>
-      <div class="intro-galaxy__stars" aria-hidden="true"></div>
-      <div class="intro-galaxy__title">
-        <span class="intro-galaxy__name">Aravinda</span>
-        <span class="intro-galaxy__role">Project Manager</span>
+    <main class="card">
+      <div class="lang-switch" aria-label="Переключение языка">
+        <button class="lang-btn lang-btn--active" type="button" data-lang="ru">🇷🇺 Рус</button>
+        <button class="lang-btn" type="button" data-lang="en">🇬🇧 Eng</button>
+      </div>
+      <div class="logo" aria-hidden="true">
+        <img src="IMG_9591.jpeg" alt="" />
+      </div>
+      <p class="card__overline">HARE KRISHNA Batumi</p>
+      <h1>ISKCON Centre</h1>
+      <p class="subtitle">
+        Если вы хотите принять финансовое участие в жизни храма, вы можете выбрать удобный
+        для вас способ для пожертвований.
+      </p>
+      <div class="actions">
+        <a class="btn" id="tbc-link" href="#">
+          <span class="btn__label" id="tbc-label">Пожертвовать лари на TBC</span>
+          <span class="btn__note" id="tbc-note">в один клик</span>
+        </a>
+        <a class="btn" id="credo-button" href="#">
+          <span class="btn__label" id="credo-label">Пожертвовать лари на Credo</span>
+          <span class="btn__note" id="credo-note">по реквизитам</span>
+        </a>
+        <a class="btn" id="sbp-link" href="#">
+          <span class="btn__label" id="sbp-label">Пожертвовать рубли по СБП</span>
+          <span class="btn__note" id="sbp-note">в один клик</span>
+        </a>
+        <a class="btn" id="crypto-button" href="#">
+          <span class="btn__label" id="crypto-label">Пожертвовать криптовалюту</span>
+        </a>
+        <a class="btn" id="question-button" href="#">
+          <span class="btn__label" id="question-label">Задать вопрос</span>
+        </a>
+      </div>
+      <div class="footer-lines">
+        <p>Шри Шри Нитьянанда Гауранга Махабхава Расарадж ки джай</p>
+        <p>Шри Джаганат Баладев Субхадра ки джай</p>
+        <p>Шрила Прабхупада ки джай</p>
+      </div>
+    </main>
+    <div class="modal-overlay" id="credo-modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="credo-modal-title">
+        <button class="modal__close" type="button" aria-label="Закрыть" id="credo-modal-close">
+          ×
+        </button>
+        <h2 class="modal__title" id="credo-modal-title">Реквизиты Credo Bank</h2>
+        <ul class="modal__list">
+          <li id="credo-receiver">Получатель: Anatolii Smolin</li>
+          <li id="credo-bank">Банк: Credo Bank</li>
+          <li id="credo-iban">IBAN: GE25CD0360000060644802</li>
+          <li id="credo-purpose">Назначение платежа: пожертвование храму</li>
+        </ul>
+        <div class="modal__actions">
+          <button class="btn btn--primary" type="button" id="copy-credo">
+            Скопировать реквизиты
+          </button>
+          <button class="btn" type="button" id="close-credo">Закрыть</button>
+        </div>
       </div>
     </div>
-    <div class="tech-background" aria-hidden="true">
-      <div class="tech-background__orbits">
-        <span class="tech-background__orbit tech-background__orbit--lg"></span>
-        <span class="tech-background__orbit tech-background__orbit--md"></span>
-        <span class="tech-background__orbit tech-background__orbit--sm"></span>
+    <div class="modal-overlay" id="crypto-modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="crypto-modal-title">
+        <button class="modal__close" type="button" aria-label="Закрыть" id="crypto-modal-close">
+          ×
+        </button>
+        <h2 class="modal__title" id="crypto-modal-title">Криптовалютный адрес для пожертвований</h2>
+        <ul class="modal__list">
+          <li id="crypto-network">Сеть: TRON (TRC20)</li>
+          <li id="crypto-address">USDT TRC20: TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7</li>
+        </ul>
+        <div class="modal__actions">
+          <button class="btn btn--primary" type="button" id="copy-crypto">Скопировать адрес</button>
+          <button class="btn" type="button" id="close-crypto">Закрыть</button>
+        </div>
       </div>
-      <div class="tech-background__orb"></div>
-      <div class="tech-background__grid"></div>
-      <div class="tech-background__particles"></div>
     </div>
-    <div class="page">
-      <header class="hero">
-        <div class="hero__text">
-          <span class="hero__tag">PROJECT MANAGER / PRODUCT MANAGER</span>
-          <h1>Запуск и развитие проектов с нуля в IT, девелопменте и креативных индустриях</h1>
-          <p>
-            Управляю продуктами и кросс-функциональными командами, создаю процессы,
-            которые вдохновляют людей и дают предсказуемый результат.
-          </p>
-          <div class="hero__contacts">
-            <span>📍 Батуми, Грузия</span>
-            <span>📧 <a href="mailto:hello@example.com">hello@example.com</a></span>
-            <span>📞 <a href="tel:+995000000000">+995 000 000 000</a> · Telegram</span>
-            <span>🌐 <a href="https://www.linkedin.com/in/username" target="_blank" rel="noreferrer">LinkedIn / Portfolio</a></span>
-          </div>
+    <div class="modal-overlay" id="question-modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="question-modal-title">
+        <button class="modal__close" type="button" aria-label="Закрыть" id="question-modal-close">
+          ×
+        </button>
+        <h2 class="modal__title" id="question-modal-title">Связаться с нами</h2>
+        <ul class="modal__list">
+          <li id="question-intro">
+            Если у вас есть вопросы по пожертвованиям или вы хотите сделать целевое пожертвование,
+            напишите нам
+          </li>
+          <li>
+            <a class="btn" id="question-telegram" href="https://t.me/aravinda108" target="_blank" rel="noopener noreferrer">
+              Написать в Telegram
+            </a>
+          </li>
+          <li>
+            <a class="btn" id="question-whatsapp" href="https://wa.me/79324169924" target="_blank" rel="noopener noreferrer">
+              Написать в WhatsApp
+            </a>
+          </li>
+        </ul>
+        <div class="modal__actions">
+          <button class="btn" type="button" id="close-question">Закрыть</button>
         </div>
-        <div class="hero__badge">
-          <div class="hero__experience-number">10+</div>
-          <div class="hero__experience-label">лет опыта<br />управления<br />проектами</div>
-        </div>
-      </header>
-
-      <main>
-        <section class="section" id="about">
-          <h2>О себе</h2>
-          <p>
-            Project Manager с более чем 10-летним опытом управления кросс-функциональными
-            командами и запуском проектов с нуля. Работаю на стыке технологий, креатива
-            и системного менеджмента. Последние годы сосредоточен на разработке
-            digital-продуктов и управлении командами в формате Agile/Scrum. Мой фокус —
-            создание структуры, которая вдохновляет людей и даёт предсказуемый результат.
-            Ищу возможности применить опыт запуска, выстраивания процессов и долгосрочного
-            управления продуктами в IT-компании.
-          </p>
-        </section>
-
-        <section class="section" id="skills">
-          <h2>Ключевые навыки</h2>
-          <div class="skills-grid">
-            <div class="skill-card">
-              <h3>Управление продуктом</h3>
-              <ul>
-                <li>Agile / Scrum / Kanban</li>
-                <li>Планирование и приоритизация</li>
-                <li>Анализ требований и постановка задач</li>
-                <li>Delivery и контроль сроков</li>
-              </ul>
-            </div>
-            <div class="skill-card">
-              <h3>Работа с командами</h3>
-              <ul>
-                <li>Формирование и развитие команд (5–30 человек)</li>
-                <li>Коммуникации и фасилитация процессов</li>
-                <li>Бюджетирование и управление ресурсами</li>
-                <li>Организация распределённой работы</li>
-              </ul>
-            </div>
-            <div class="skill-card">
-              <h3>Инструменты</h3>
-              <ul>
-                <li>Jira, Trello, ClickUp, Notion</li>
-                <li>Miro, Figma, Google Workspace</li>
-                <li>GitHub, Confluence</li>
-                <li>React Native, PostgreSQL, API (базовый уровень)</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section class="section" id="experience">
-          <h2>Опыт работы</h2>
-          <div class="experience-group">
-            <h3>💻 IT и цифровые проекты</h3>
-            <article class="experience-card">
-              <div class="experience-card__header">
-                <div>
-                  <h4>Gaudiobooks — Project Manager</h4>
-                  <span class="experience-card__period">2024 – н.в.</span>
-                </div>
-              </div>
-              <ul>
-                <li>Руководил созданием мобильного приложения для прослушивания духовных аудиокниг.</li>
-                <li>Команда: 4 человека (full-stack разработчик, дизайнер, тестировщик, PM).</li>
-                <li>Срок реализации: 3 месяца от идеи до релиза в Google Play и App Store.</li>
-                <li>Организовал работу команды без финансовой мотивации, сохранив сроки и вовлечённость.</li>
-                <li>Приложением пользуются несколько тысяч пользователей, растёт библиотека и активность слушателей.</li>
-              </ul>
-            </article>
-
-            <article class="experience-card">
-              <div class="experience-card__header">
-                <div>
-                  <h4>DasBoard — Автор и разработчик приложения</h4>
-                  <span class="experience-card__period">2023 – 2024</span>
-                </div>
-              </div>
-              <ul>
-                <li>Разработал с нуля приложение на React Native + PostgreSQL для финансового учёта и инвентаризации проектов.</li>
-                <li>Используется 20+ руководителями сообществ (Батуми, Евпатория, Чиангмай).</li>
-                <li>Реализованы: мультивалютный учёт, выгрузка PDF-отчётов, API-интеграция валютных курсов.</li>
-                <li>Повышена прозрачность финансов, подготовка отчётности ускорена до 1 минуты.</li>
-              </ul>
-            </article>
-          </div>
-
-          <div class="experience-group">
-            <h3>🏗 Девелопмент и социальные инициативы</h3>
-            <article class="experience-card">
-              <div class="experience-card__header">
-                <div>
-                  <h4>Seven Suns Development — Менеджер по развитию / Заместитель директора</h4>
-                  <span class="experience-card__period">2015 – 2018</span>
-                </div>
-              </div>
-              <ul>
-                <li>Проект «Марафон Здоровья»: руководство 4-месячным промо-проектом для ЖК «Светлый мир внутри».</li>
-                <li>Бюджет: 80+ млн ₽, еженедельные концерты и активности, охват более 40 000 участников.</li>
-                <li>Полностью проданы апартаменты, проект получил федеральное медиа-освещение.</li>
-                <li>Курировал разработку сайта с геймификацией и рейтинговой системой.</li>
-              </ul>
-            </article>
-            <article class="experience-card">
-              <div class="experience-card__header">
-                <div>
-                  <h4>Проект «Настоящая Жизнь» — руководитель направления</h4>
-                  <span class="experience-card__period">2015 – 2018</span>
-                </div>
-              </div>
-              <ul>
-                <li>Руководил направлением спорта и здоровья в культурно-образовательном центре 3 000 м².</li>
-                <li>Провёл сотни мероприятий с тысячами участников, сформировал команду из 30 преподавателей.</li>
-                <li>Обеспечил самоокупаемость направления при модели добровольных пожертвований.</li>
-              </ul>
-            </article>
-          </div>
-
-          <div class="experience-group">
-            <h3>🎵 Креативные и музыкальные проекты</h3>
-            <article class="experience-card">
-              <div class="experience-card__header">
-                <div>
-                  <h4>ODNONO — Соучредитель и директор</h4>
-                  <span class="experience-card__period">2020 – н.в.</span>
-                </div>
-              </div>
-              <ul>
-                <li>Руководство командой из 10+ специалистов и партнёрствами с ведущими артистами.</li>
-                <li>Инвестиции ≈ 10 млн ₽; бюджет клипа 0,5 млн ₽; релиза — 200–300 тыс. ₽.</li>
-                <li>Главный хедлайнер этно- и йога-фестивалей (Россия, Бали, Гоа).</li>
-                <li>Зарегистрирован товарный знак ODNONO, обеспечена юридическая защита бренда.</li>
-              </ul>
-            </article>
-            <article class="experience-card">
-              <div class="experience-card__header">
-                <div>
-                  <h4>Bhakti Way — Сооснователь и руководитель проекта</h4>
-                  <span class="experience-card__period">2018 – 2020</span>
-                </div>
-              </div>
-              <ul>
-                <li>Запустил проект с нуля, собрал команду из 9 музыкантов и провёл ≈15 стартовых концертов.</li>
-                <li>Настроил партнёрства и внутренние процессы; проект успешно развивается по сей день.</li>
-              </ul>
-            </article>
-          </div>
-
-          <div class="experience-group">
-            <h3>🌿 Community & Cultural Management</h3>
-            <article class="experience-card">
-              <div class="experience-card__header">
-                <div>
-                  <h4>Cultural &amp; Educational Center, Батуми — Президент / Руководитель проекта</h4>
-                  <span class="experience-card__period">2022 – н.в.</span>
-                </div>
-              </div>
-              <ul>
-                <li>Руководство культурным центром, рост команды с 5 до 20 участников.</li>
-                <li>Регулярные программы: 4 мероприятия в неделю + фестивали раз в 3 месяца.</li>
-                <li>Организовал летний фестиваль на набережной Батуми, посещаемость ~50 участников еженедельно.</li>
-                <li>Управление без внешнего финансирования за счёт самоорганизации и вовлечённости.</li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="education">
-          <h2>Образование</h2>
-          <div class="info-card">
-            <h4>Смольный Институт Российской Академии Образования</h4>
-            <p>Факультет «Сервис» · Выпуск 2014</p>
-          </div>
-        </section>
-
-        <section class="section" id="languages">
-          <h2>Языки</h2>
-          <div class="info-card">
-            <p>Русский — родной · Английский — базовый (разговорный уровень, продолжаю изучение)</p>
-          </div>
-        </section>
-
-        <section class="section" id="format">
-          <h2>Формат работы</h2>
-          <div class="info-card">
-            <p>
-              Открыт к позициям Project Manager / Product Manager в IT. Интересен запуск новых
-              продуктов (Launch PM) и долгосрочная работа в продуктовой команде.
-            </p>
-          </div>
-        </section>
-      </main>
-
-        <footer class="footer">
-          <p>Готов обсудить сотрудничество и поделиться дополнительными кейсами по запросу.</p>
-          <a class="button" href="mailto:hello@example.com">Связаться</a>
-        </footer>
+      </div>
     </div>
+    <div class="copy-note" id="copy-note" role="status" aria-live="polite"></div>
+    <script>
+      const TBC_LINK = "https://tbconline.ge/MB/TT/GE91TB7070345061200005"; // Реальная ссылка оплаты TBC
+      const SBP_LINK = "https://finance.ozon.ru/apps/sbp/ozonbankpay/019b7357-1f94-79b2-8448-8b0f55d2915d"; // Реальная ссылка для оплаты по СБП
+      const CREDO_RECEIVER = "Anatolii Smolin"; // Укажите фактического получателя, если изменится
+      const CREDO_BANK = "Credo Bank"; // Укажите фактический банк при необходимости
+      const CREDO_IBAN = "GE25CD0360000060644802"; // Укажите реальный IBAN для Credo
+      const CREDO_PURPOSE_RU = "пожертвование храму"; // Обновите назначение платежа на русском
+      const CREDO_PURPOSE_EN = "donation to the temple"; // Обновите назначение платежа на английском при смене
+      const CRYPTO_NETWORK = "TRON (TRC20)"; // Укажите используемую сеть перевода при изменении
+      const CRYPTO_ADDRESS = "TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7"; // Реальный криптоадрес для TRC20
+      const QUESTION_TELEGRAM = "https://t.me/aravinda108"; // Ссылка для связи в Telegram
+      const QUESTION_WHATSAPP = "https://wa.me/79324169924"; // Ссылка для связи в WhatsApp
+      let copyNoteTimer;
+
+      const translations = {
+        ru: {
+          overline: "HARE KRISHNA Batumi",
+          title: "ISKCON Centre",
+          subtitle:
+            "Если вы хотите принять финансовое участие в жизни храма, вы можете выбрать удобный для вас способ для пожертвований.",
+          buttons: {
+            tbc: { label: "Пожертвовать лари на TBC", note: "в один клик" },
+            credo: { label: "Пожертвовать лари на Credo", note: "по реквизитам" },
+            sbp: { label: "Пожертвовать рубли по СБП", note: "в один клик" },
+            crypto: { label: "Пожертвовать криптовалюту" },
+            question: { label: "Задать вопрос" },
+          },
+          credoTitle: "Реквизиты Credo Bank",
+          credoReceiverLabel: "Получатель:",
+          credoBankLabel: "Банк:",
+          credoIbanLabel: "IBAN:",
+          credoPurposeLabel: "Назначение платежа:",
+          credoPurposeValue: CREDO_PURPOSE_RU,
+          credoCopy: "Скопировать реквизиты",
+          close: "Закрыть",
+          cryptoTitle: "Криптовалютный адрес для пожертвований",
+          cryptoNetworkLabel: "Сеть:",
+          cryptoAddressLabel: "USDT TRC20:",
+          cryptoCopy: "Скопировать адрес",
+          questionTitle: "Связаться с нами",
+          questionIntro:
+            "Если у вас есть вопросы по пожертвованиям или вы хотите сделать целевое пожертвование, напишите нам",
+          questionTelegram: "Написать в Telegram",
+          questionWhatsApp: "Написать в WhatsApp",
+          copyThanks: "Спасибо за ваше служение",
+          footerLines: [
+            "Шри Шри Нитьянанда Гауранга Махабхава Расарадж ки джай",
+            "Шри Джаганат Баладев Субхадра ки джай",
+            "Шрила Прабхупада ки джай",
+          ],
+        },
+        en: {
+          overline: "HARE KRISHNA Batumi",
+          title: "ISKCON Centre",
+          subtitle:
+            "If you would like to support the temple, please choose the most convenient donation method.",
+          buttons: {
+            tbc: { label: "Donate GEL via TBC", note: "one click" },
+            credo: { label: "Donate GEL via Credo", note: "bank details" },
+            sbp: { label: "Donate RUB via SBP", note: "one click" },
+            crypto: { label: "Donate cryptocurrency" },
+            question: { label: "Ask a question" },
+          },
+          credoTitle: "Credo Bank details",
+          credoReceiverLabel: "Recipient:",
+          credoBankLabel: "Bank:",
+          credoIbanLabel: "IBAN:",
+          credoPurposeLabel: "Payment purpose:",
+          credoPurposeValue: CREDO_PURPOSE_EN,
+          credoCopy: "Copy details",
+          close: "Close",
+          cryptoTitle: "Cryptocurrency donation address",
+          cryptoNetworkLabel: "Network:",
+          cryptoAddressLabel: "USDT TRC20:",
+          cryptoCopy: "Copy address",
+          questionTitle: "Contact us",
+          questionIntro:
+            "If you have questions about donations or wish to make a targeted offering, please message us.",
+          questionTelegram: "Message on Telegram",
+          questionWhatsApp: "Message on WhatsApp",
+          copyThanks: "Thank you for your service",
+          footerLines: [
+            "Sri Sri Nityananda Gauranga Mahabhava Rasaraj ki jai",
+            "Sri Jagannath Baladeva Subhadra ki jai",
+            "Srila Prabhupada ki jai",
+          ],
+        },
+      };
+
+      const langButtons = document.querySelectorAll(".lang-btn");
+      const tbcLink = document.getElementById("tbc-link");
+      const tbcLabel = document.getElementById("tbc-label");
+      const tbcNote = document.getElementById("tbc-note");
+      const sbpLink = document.getElementById("sbp-link");
+      const sbpLabel = document.getElementById("sbp-label");
+      const sbpNote = document.getElementById("sbp-note");
+      const credoButton = document.getElementById("credo-button");
+      const credoLabel = document.getElementById("credo-label");
+      const credoNote = document.getElementById("credo-note");
+      const credoModal = document.getElementById("credo-modal");
+      const credoModalClose = document.getElementById("credo-modal-close");
+      const credoModalCloseSecondary = document.getElementById("close-credo");
+      const copyCredoButton = document.getElementById("copy-credo");
+      const credoReceiver = document.getElementById("credo-receiver");
+      const credoBank = document.getElementById("credo-bank");
+      const credoIban = document.getElementById("credo-iban");
+      const credoPurpose = document.getElementById("credo-purpose");
+      const cryptoButton = document.getElementById("crypto-button");
+      const cryptoLabel = document.getElementById("crypto-label");
+      const cryptoModal = document.getElementById("crypto-modal");
+      const cryptoModalClose = document.getElementById("crypto-modal-close");
+      const cryptoModalCloseSecondary = document.getElementById("close-crypto");
+      const cryptoNetwork = document.getElementById("crypto-network");
+      const cryptoAddress = document.getElementById("crypto-address");
+      const copyCryptoButton = document.getElementById("copy-crypto");
+      const questionButton = document.getElementById("question-button");
+      const questionLabel = document.getElementById("question-label");
+      const questionModal = document.getElementById("question-modal");
+      const questionModalClose = document.getElementById("question-modal-close");
+      const questionModalCloseSecondary = document.getElementById("close-question");
+      const questionTelegramLink = document.getElementById("question-telegram");
+      const questionWhatsAppLink = document.getElementById("question-whatsapp");
+      const cardOverline = document.querySelector(".card__overline");
+      const cardTitle = document.querySelector("h1");
+      const subtitle = document.querySelector(".subtitle");
+      const copyNote = document.getElementById("copy-note");
+      const credoModalTitle = document.getElementById("credo-modal-title");
+      const cryptoModalTitle = document.getElementById("crypto-modal-title");
+      const questionModalTitle = document.getElementById("question-modal-title");
+      const questionIntro = document.getElementById("question-intro");
+      const footerLines = document.querySelectorAll(".footer-lines p");
+      let currentLang = "ru";
+
+      if (tbcLink) {
+        tbcLink.href = TBC_LINK;
+        tbcLink.target = "_blank";
+        tbcLink.rel = "noopener noreferrer";
+      }
+
+      if (sbpLink) {
+        sbpLink.href = SBP_LINK;
+        sbpLink.target = "_blank";
+        sbpLink.rel = "noopener noreferrer";
+      }
+
+      if (questionTelegramLink) {
+        questionTelegramLink.href = QUESTION_TELEGRAM;
+      }
+
+      if (questionWhatsAppLink) {
+        questionWhatsAppLink.href = QUESTION_WHATSAPP;
+      }
+
+      const setActiveLangButton = (lang) => {
+        langButtons.forEach((button) => {
+          if (button.dataset.lang === lang) {
+            button.classList.add("lang-btn--active");
+          } else {
+            button.classList.remove("lang-btn--active");
+          }
+        });
+      };
+
+      const setButtonText = (config, labelEl, noteEl) => {
+        if (labelEl && config?.label) {
+          labelEl.textContent = config.label;
+        }
+
+        if (noteEl) {
+          if (config?.note) {
+            noteEl.textContent = config.note;
+            noteEl.style.display = "block";
+          } else {
+            noteEl.textContent = "";
+            noteEl.style.display = "none";
+          }
+        }
+      };
+
+      const setLanguage = (lang) => {
+        if (!translations[lang]) return;
+        currentLang = lang;
+        const t = translations[lang];
+        document.documentElement.lang = lang;
+
+        if (cardOverline) cardOverline.textContent = t.overline;
+        if (cardTitle) cardTitle.textContent = t.title;
+        if (subtitle) subtitle.textContent = t.subtitle;
+
+        setButtonText(t.buttons.tbc, tbcLabel, tbcNote);
+        setButtonText(t.buttons.credo, credoLabel, credoNote);
+        setButtonText(t.buttons.sbp, sbpLabel, sbpNote);
+        setButtonText(t.buttons.crypto, cryptoLabel);
+        setButtonText(t.buttons.question, questionLabel);
+
+        if (credoModalTitle) credoModalTitle.textContent = t.credoTitle;
+        if (credoReceiver) credoReceiver.textContent = `${t.credoReceiverLabel} ${CREDO_RECEIVER}`;
+        if (credoBank) credoBank.textContent = `${t.credoBankLabel} ${CREDO_BANK}`;
+        if (credoIban) credoIban.textContent = `${t.credoIbanLabel} ${CREDO_IBAN}`;
+        if (credoPurpose) credoPurpose.textContent = `${t.credoPurposeLabel} ${t.credoPurposeValue}`;
+        if (copyCredoButton) copyCredoButton.textContent = t.credoCopy;
+        if (credoModalCloseSecondary) credoModalCloseSecondary.textContent = t.close;
+
+        if (cryptoModalTitle) cryptoModalTitle.textContent = t.cryptoTitle;
+        if (cryptoNetwork) cryptoNetwork.textContent = `${t.cryptoNetworkLabel} ${CRYPTO_NETWORK}`;
+        if (cryptoAddress) cryptoAddress.textContent = `${t.cryptoAddressLabel} ${CRYPTO_ADDRESS}`;
+        if (copyCryptoButton) copyCryptoButton.textContent = t.cryptoCopy;
+        if (cryptoModalCloseSecondary) cryptoModalCloseSecondary.textContent = t.close;
+
+        if (questionModalTitle) questionModalTitle.textContent = t.questionTitle;
+        if (questionIntro) questionIntro.textContent = t.questionIntro;
+        if (questionTelegramLink) questionTelegramLink.textContent = t.questionTelegram;
+        if (questionWhatsAppLink) questionWhatsAppLink.textContent = t.questionWhatsApp;
+        if (questionModalCloseSecondary) questionModalCloseSecondary.textContent = t.close;
+
+        if (footerLines?.length) {
+          footerLines.forEach((line, index) => {
+            if (t.footerLines[index]) {
+              line.textContent = t.footerLines[index];
+            }
+          });
+        }
+
+        setActiveLangButton(lang);
+      };
+
+      setLanguage(currentLang);
+
+      const getText = (key) => translations[currentLang]?.[key] || translations.ru[key];
+
+      const showCopyNote = (message) => {
+        if (!copyNote || !message) return;
+        copyNote.textContent = message;
+        copyNote.classList.add("is-visible");
+        if (copyNoteTimer) {
+          clearTimeout(copyNoteTimer);
+        }
+        copyNoteTimer = setTimeout(() => {
+          copyNote.classList.remove("is-visible");
+        }, 2400);
+      };
+
+      const openCredoModal = () => {
+        if (credoModal) {
+          credoModal.classList.add("is-visible");
+        }
+      };
+
+      const closeCredoModal = () => {
+        if (credoModal) {
+          credoModal.classList.remove("is-visible");
+        }
+      };
+
+      const openCryptoModal = () => {
+        if (cryptoModal) {
+          cryptoModal.classList.add("is-visible");
+        }
+      };
+
+      const closeCryptoModal = () => {
+        if (cryptoModal) {
+          cryptoModal.classList.remove("is-visible");
+        }
+      };
+
+      const openQuestionModal = () => {
+        if (questionModal) {
+          questionModal.classList.add("is-visible");
+        }
+      };
+
+      const closeQuestionModal = () => {
+        if (questionModal) {
+          questionModal.classList.remove("is-visible");
+        }
+      };
+
+      if (credoButton) {
+        credoButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openCredoModal();
+        });
+      }
+
+      if (langButtons.length) {
+        langButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            setLanguage(button.dataset.lang);
+          });
+        });
+      }
+
+      if (cryptoButton) {
+        cryptoButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openCryptoModal();
+        });
+      }
+
+      if (questionButton) {
+        questionButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openQuestionModal();
+        });
+      }
+
+      if (credoModalClose) {
+        credoModalClose.addEventListener("click", closeCredoModal);
+      }
+
+      if (credoModalCloseSecondary) {
+        credoModalCloseSecondary.addEventListener("click", closeCredoModal);
+      }
+
+      if (cryptoModalClose) {
+        cryptoModalClose.addEventListener("click", closeCryptoModal);
+      }
+
+      if (cryptoModalCloseSecondary) {
+        cryptoModalCloseSecondary.addEventListener("click", closeCryptoModal);
+      }
+
+      if (questionModalClose) {
+        questionModalClose.addEventListener("click", closeQuestionModal);
+      }
+
+      if (questionModalCloseSecondary) {
+        questionModalCloseSecondary.addEventListener("click", closeQuestionModal);
+      }
+
+      if (credoModal) {
+        credoModal.addEventListener("click", (event) => {
+          if (event.target === credoModal) {
+            closeCredoModal();
+          }
+        });
+      }
+
+      if (cryptoModal) {
+        cryptoModal.addEventListener("click", (event) => {
+          if (event.target === cryptoModal) {
+            closeCryptoModal();
+          }
+        });
+      }
+
+      if (questionModal) {
+        questionModal.addEventListener("click", (event) => {
+          if (event.target === questionModal) {
+            closeQuestionModal();
+          }
+        });
+      }
+
+      if (copyCredoButton) {
+        copyCredoButton.addEventListener("click", () => {
+          navigator.clipboard.writeText(CREDO_IBAN).then(() => {
+            showCopyNote(getText("copyThanks"));
+          });
+        });
+      }
+
+      if (copyCryptoButton) {
+        copyCryptoButton.addEventListener("click", () => {
+          navigator.clipboard.writeText(CRYPTO_ADDRESS).then(() => {
+            showCopyNote(getText("copyThanks"));
+          });
+        });
+      }
+    </script>
   </body>
 </html>
