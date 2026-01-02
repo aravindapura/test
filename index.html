@@ -199,6 +199,89 @@
         gap: 10px;
       }
 
+      .inventory-tabs {
+        display: inline-flex;
+        border: 1px solid #e0d6c9;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 0 auto 12px;
+        background: #f7f4ed;
+        box-shadow: 0 4px 10px rgba(33, 33, 52, 0.08);
+      }
+
+      .inventory-tab {
+        border: none;
+        background: transparent;
+        padding: 10px 14px;
+        font-weight: 600;
+        cursor: pointer;
+        color: #3c3d45;
+        transition: background-color 0.15s ease, color 0.15s ease;
+      }
+
+      .inventory-tab + .inventory-tab {
+        border-left: 1px solid #e0d6c9;
+      }
+
+      .inventory-tab--active {
+        background: #2f80ed;
+        color: #ffffff;
+      }
+
+      .inventory-sections {
+        margin: 0;
+      }
+
+      .inventory-panel {
+        display: none;
+      }
+
+      .inventory-panel.is-active {
+        display: block;
+      }
+
+      .inventory-grid {
+        display: grid;
+        gap: 10px;
+      }
+
+      .inventory-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 14px;
+        border: 1px solid #e9e2d7;
+        border-radius: 12px;
+        background: #fcfaf6;
+      }
+
+      .inventory-item__text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        text-align: left;
+      }
+
+      .inventory-item__title {
+        font-weight: 700;
+        color: #1f1f1f;
+      }
+
+      .inventory-item__note {
+        color: #555;
+        font-size: 14px;
+      }
+
+      .inventory-item__status {
+        font-size: 13px;
+        padding: 6px 10px;
+        border-radius: 10px;
+        background: #eef4ff;
+        color: #2f80ed;
+        border: 1px solid rgba(47, 128, 237, 0.2);
+        white-space: nowrap;
+      }
+
       .modal__actions .btn {
         flex: 1;
       }
@@ -307,6 +390,14 @@
           <span class="btn__label" id="tbc-label">Пожертвовать лари на TBC</span>
           <span class="btn__note" id="tbc-note">в один клик</span>
         </a>
+        <a class="btn" id="bog-button" href="#">
+          <span class="btn__label" id="bog-label">Пожертвовать лари на Bank of Georgia</span>
+          <span class="btn__note" id="bog-note">по реквизитам</span>
+        </a>
+        <a class="btn" id="inventory-button" href="#">
+          <span class="btn__label" id="inventory-label">Склад: инвентарь и книги</span>
+          <span class="btn__note" id="inventory-note">компактный список</span>
+        </a>
         <a class="btn" id="credo-button" href="#">
           <span class="btn__label" id="credo-label">Пожертвовать лари на Credo</span>
           <span class="btn__note" id="credo-note">по реквизитам</span>
@@ -348,8 +439,63 @@
         </div>
       </div>
     </div>
-    <div class="modal-overlay" id="crypto-modal">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="crypto-modal-title">
+      <div class="modal-overlay" id="bog-modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bog-modal-title">
+          <button class="modal__close" type="button" aria-label="Закрыть" id="bog-modal-close">×</button>
+          <h2 class="modal__title" id="bog-modal-title">Реквизиты Bank of Georgia</h2>
+          <ul class="modal__list">
+          <li id="bog-receiver">Получатель: Stanislav</li>
+          <li id="bog-bank">Банк: Bank of Georgia</li>
+          <li id="bog-iban">IBAN: GE64BG0000000611135063</li>
+          <li id="bog-purpose">Назначение платежа: пожертвование храму</li>
+        </ul>
+        <div class="modal__actions">
+          <button class="btn btn--primary" type="button" id="copy-bog">Скопировать реквизиты</button>
+          <button class="btn" type="button" id="close-bog">Закрыть</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-overlay" id="inventory-modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="inventory-modal-title">
+          <button class="modal__close" type="button" aria-label="Закрыть" id="inventory-modal-close">×</button>
+          <h2 class="modal__title" id="inventory-modal-title">Склад</h2>
+          <div class="inventory-tabs" role="tablist">
+            <button
+              class="inventory-tab inventory-tab--active"
+              type="button"
+              id="inventory-tab-gear"
+              data-section="gear"
+              aria-controls="inventory-panel-gear"
+              aria-selected="true"
+            >
+              Инвентарь
+            </button>
+            <button
+              class="inventory-tab"
+              type="button"
+              id="inventory-tab-books"
+              data-section="books"
+              aria-controls="inventory-panel-books"
+              aria-selected="false"
+            >
+              Книги
+            </button>
+          </div>
+          <div class="inventory-sections">
+            <div class="inventory-panel is-active" id="inventory-panel-gear" role="tabpanel" aria-labelledby="inventory-tab-gear">
+              <div class="inventory-grid" data-section-list="gear"></div>
+            </div>
+            <div class="inventory-panel" id="inventory-panel-books" role="tabpanel" aria-labelledby="inventory-tab-books">
+              <div class="inventory-grid" data-section-list="books"></div>
+            </div>
+          </div>
+          <div class="modal__actions">
+            <button class="btn" type="button" id="close-inventory">Закрыть</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-overlay" id="crypto-modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="crypto-modal-title">
         <button class="modal__close" type="button" aria-label="Закрыть" id="crypto-modal-close">
           ×
         </button>
@@ -395,6 +541,11 @@
     <script>
       const TBC_LINK = "https://tbconline.ge/MB/TT/GE91TB7070345061200005"; // Реальная ссылка оплаты TBC
       const SBP_LINK = "https://finance.ozon.ru/apps/sbp/ozonbankpay/019b7357-1f94-79b2-8448-8b0f55d2915d"; // Реальная ссылка для оплаты по СБП
+      const BOG_RECEIVER = "Stanislav"; // Получатель Bank of Georgia
+      const BOG_BANK = "Bank of Georgia"; // Банк для платежа
+      const BOG_IBAN = "GE64BG0000000611135063"; // IBAN для Bank of Georgia
+      const BOG_PURPOSE_RU = "пожертвование храму"; // Назначение платежа Bank of Georgia (RU)
+      const BOG_PURPOSE_EN = "donation to the temple"; // Назначение платежа Bank of Georgia (EN)
       const CREDO_RECEIVER = "Anatolii Smolin"; // Укажите фактического получателя, если изменится
       const CREDO_BANK = "Credo Bank"; // Укажите фактический банк при необходимости
       const CREDO_IBAN = "GE25CD0360000060644802"; // Укажите реальный IBAN для Credo
@@ -404,6 +555,51 @@
       const CRYPTO_ADDRESS = "TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7"; // Реальный криптоадрес для TRC20
       const QUESTION_TELEGRAM = "https://t.me/aravinda108"; // Ссылка для связи в Telegram
       const QUESTION_WHATSAPP = "https://wa.me/79324169924"; // Ссылка для связи в WhatsApp
+      const inventoryData = {
+        gear: [
+          {
+            id: "hall",
+            title: { ru: "Зал и киртан", en: "Hall & kirtan" },
+            note: {
+              ru: "коврики, ведра для прасада, упаковка, флейты",
+              en: "mats, prasadam buckets, packaging, flutes",
+            },
+            status: { ru: "готово к использованию", en: "ready to use" },
+          },
+          {
+            id: "kitchen",
+            title: { ru: "Кухня и служения", en: "Kitchen & services" },
+            note: { ru: "котлы, ножи, доски, раздаточные ёмкости", en: "pots, knives, boards, serving containers" },
+            status: { ru: "укомплектовано", en: "fully stocked" },
+          },
+          {
+            id: "temple",
+            title: { ru: "Алтарь", en: "Altar" },
+            note: { ru: "лотосы, подсвечники, средства ухода", en: "lotus stands, candle holders, care supplies" },
+            status: { ru: "подготовлено", en: "prepared" },
+          },
+        ],
+        books: [
+          {
+            id: "gita",
+            title: { ru: "Бхагавад-гита — 50 шт", en: "Bhagavad-gita — 50 pcs" },
+            note: { ru: "русский и английский", en: "Russian and English" },
+            status: { ru: "на складе", en: "in stock" },
+          },
+          {
+            id: "science",
+            title: { ru: "Наука самосознания — 35 шт", en: "Science of Self-Realization — 35 pcs" },
+            note: { ru: "раздать на программы", en: "for community programs" },
+            status: { ru: "готовы к выдаче", en: "ready to hand out" },
+          },
+          {
+            id: "cards",
+            title: { ru: "Малые книги и листовки", en: "Pocket books & flyers" },
+            note: { ru: "на киртан, нама-хатту, выездные", en: "for kirtan, nama-hatta, outreach" },
+            status: { ru: "пополняются", en: "replenishing" },
+          },
+        ],
+      };
       let copyNoteTimer;
 
       const translations = {
@@ -414,11 +610,24 @@
             "Если вы хотите принять финансовое участие в жизни храма, вы можете выбрать удобный для вас способ для пожертвований.",
           buttons: {
             tbc: { label: "Пожертвовать лари на TBC", note: "в один клик" },
+            bog: { label: "Пожертвовать лари на Bank of Georgia", note: "по реквизитам" },
+            inventory: { label: "Склад: инвентарь и книги", note: "компактный список" },
             credo: { label: "Пожертвовать лари на Credo", note: "по реквизитам" },
             sbp: { label: "Пожертвовать рубли по СБП", note: "в один клик" },
             crypto: { label: "Пожертвовать криптовалюту" },
             question: { label: "Задать вопрос" },
           },
+          inventory: {
+            title: "Склад",
+            tabs: { gear: "Инвентарь", books: "Книги" },
+          },
+          bogTitle: "Реквизиты Bank of Georgia",
+          bogReceiverLabel: "Получатель:",
+          bogBankLabel: "Банк:",
+          bogIbanLabel: "IBAN:",
+          bogPurposeLabel: "Назначение платежа:",
+          bogPurposeValue: BOG_PURPOSE_RU,
+          bogCopy: "Скопировать реквизиты",
           credoTitle: "Реквизиты Credo Bank",
           credoReceiverLabel: "Получатель:",
           credoBankLabel: "Банк:",
@@ -450,11 +659,24 @@
             "If you would like to support the temple, please choose the most convenient donation method.",
           buttons: {
             tbc: { label: "Donate GEL via TBC", note: "one click" },
+            bog: { label: "Donate GEL via Bank of Georgia", note: "bank details" },
+            inventory: { label: "Storage: inventory & books", note: "minimal checklist" },
             credo: { label: "Donate GEL via Credo", note: "bank details" },
             sbp: { label: "Donate RUB via SBP", note: "one click" },
             crypto: { label: "Donate cryptocurrency" },
             question: { label: "Ask a question" },
           },
+          inventory: {
+            title: "Storage",
+            tabs: { gear: "Inventory", books: "Books" },
+          },
+          bogTitle: "Bank of Georgia details",
+          bogReceiverLabel: "Recipient:",
+          bogBankLabel: "Bank:",
+          bogIbanLabel: "IBAN:",
+          bogPurposeLabel: "Payment purpose:",
+          bogPurposeValue: BOG_PURPOSE_EN,
+          bogCopy: "Copy details",
           credoTitle: "Credo Bank details",
           credoReceiverLabel: "Recipient:",
           credoBankLabel: "Bank:",
@@ -485,9 +707,23 @@
       const tbcLink = document.getElementById("tbc-link");
       const tbcLabel = document.getElementById("tbc-label");
       const tbcNote = document.getElementById("tbc-note");
-      const sbpLink = document.getElementById("sbp-link");
-      const sbpLabel = document.getElementById("sbp-label");
-      const sbpNote = document.getElementById("sbp-note");
+        const bogButton = document.getElementById("bog-button");
+        const bogLabel = document.getElementById("bog-label");
+        const bogNote = document.getElementById("bog-note");
+        const inventoryButton = document.getElementById("inventory-button");
+        const inventoryLabel = document.getElementById("inventory-label");
+        const inventoryNote = document.getElementById("inventory-note");
+        const sbpLink = document.getElementById("sbp-link");
+        const sbpLabel = document.getElementById("sbp-label");
+        const sbpNote = document.getElementById("sbp-note");
+        const bogModal = document.getElementById("bog-modal");
+        const bogModalClose = document.getElementById("bog-modal-close");
+      const bogModalCloseSecondary = document.getElementById("close-bog");
+      const copyBogButton = document.getElementById("copy-bog");
+      const bogReceiver = document.getElementById("bog-receiver");
+      const bogBank = document.getElementById("bog-bank");
+      const bogIban = document.getElementById("bog-iban");
+      const bogPurpose = document.getElementById("bog-purpose");
       const credoButton = document.getElementById("credo-button");
       const credoLabel = document.getElementById("credo-label");
       const credoNote = document.getElementById("credo-note");
@@ -518,12 +754,23 @@
       const cardTitle = document.querySelector("h1");
       const subtitle = document.querySelector(".subtitle");
       const copyNote = document.getElementById("copy-note");
+      const bogModalTitle = document.getElementById("bog-modal-title");
       const credoModalTitle = document.getElementById("credo-modal-title");
       const cryptoModalTitle = document.getElementById("crypto-modal-title");
-      const questionModalTitle = document.getElementById("question-modal-title");
-      const questionIntro = document.getElementById("question-intro");
-      const footerLines = document.querySelectorAll(".footer-lines p");
-      let currentLang = "ru";
+        const questionModalTitle = document.getElementById("question-modal-title");
+        const questionIntro = document.getElementById("question-intro");
+        const footerLines = document.querySelectorAll(".footer-lines p");
+        const inventoryModal = document.getElementById("inventory-modal");
+        const inventoryModalTitle = document.getElementById("inventory-modal-title");
+        const inventoryModalClose = document.getElementById("inventory-modal-close");
+        const inventoryCloseSecondary = document.getElementById("close-inventory");
+        const inventoryTabs = document.querySelectorAll(".inventory-tab");
+          const inventoryPanels = document.querySelectorAll(".inventory-panel");
+          const inventoryLists = {
+            gear: document.querySelector('[data-section-list="gear"]'),
+            books: document.querySelector('[data-section-list="books"]'),
+          };
+        let currentLang = "ru";
 
       if (tbcLink) {
         tbcLink.href = TBC_LINK;
@@ -555,38 +802,85 @@
         });
       };
 
-      const setButtonText = (config, labelEl, noteEl) => {
-        if (labelEl && config?.label) {
-          labelEl.textContent = config.label;
-        }
-
-        if (noteEl) {
-          if (config?.note) {
-            noteEl.textContent = config.note;
-            noteEl.style.display = "block";
-          } else {
-            noteEl.textContent = "";
-            noteEl.style.display = "none";
+        const setButtonText = (config, labelEl, noteEl) => {
+          if (labelEl && config?.label) {
+            labelEl.textContent = config.label;
           }
-        }
-      };
 
-      const setLanguage = (lang) => {
-        if (!translations[lang]) return;
-        currentLang = lang;
-        const t = translations[lang];
+          if (noteEl) {
+            if (config?.note) {
+              noteEl.textContent = config.note;
+              noteEl.style.display = "block";
+            } else {
+              noteEl.textContent = "";
+              noteEl.style.display = "none";
+            }
+          }
+        };
+
+        const renderInventoryLists = (lang) => {
+          const t = translations[lang];
+          Object.entries(inventoryLists).forEach(([section, container]) => {
+            if (!container) return;
+            container.innerHTML = "";
+
+            inventoryData[section].forEach((item) => {
+              const wrapper = document.createElement("div");
+              wrapper.className = "inventory-item";
+              wrapper.setAttribute("data-item", item.id);
+
+              const textColumn = document.createElement("div");
+              textColumn.className = "inventory-item__text";
+
+              const title = document.createElement("div");
+              title.className = "inventory-item__title";
+              title.textContent = item.title[lang];
+
+              const note = document.createElement("div");
+              note.className = "inventory-item__note";
+              note.textContent = item.note[lang];
+
+              const status = document.createElement("span");
+              status.className = "inventory-item__status";
+              status.textContent = item.status[lang];
+
+              textColumn.appendChild(title);
+              textColumn.appendChild(note);
+              wrapper.appendChild(textColumn);
+              wrapper.appendChild(status);
+              container.appendChild(wrapper);
+            });
+          });
+
+          if (inventoryModalTitle) inventoryModalTitle.textContent = t.inventory.title;
+        };
+
+        const setLanguage = (lang) => {
+          if (!translations[lang]) return;
+          currentLang = lang;
+          const t = translations[lang];
         document.documentElement.lang = lang;
 
         if (cardOverline) cardOverline.textContent = t.overline;
         if (cardTitle) cardTitle.textContent = t.title;
         if (subtitle) subtitle.textContent = t.subtitle;
 
-        setButtonText(t.buttons.tbc, tbcLabel, tbcNote);
-        setButtonText(t.buttons.credo, credoLabel, credoNote);
-        setButtonText(t.buttons.sbp, sbpLabel, sbpNote);
-        setButtonText(t.buttons.crypto, cryptoLabel);
-        setButtonText(t.buttons.question, questionLabel);
+          setButtonText(t.buttons.tbc, tbcLabel, tbcNote);
+          setButtonText(t.buttons.bog, bogLabel, bogNote);
+          setButtonText(t.buttons.inventory, inventoryLabel, inventoryNote);
+          setButtonText(t.buttons.credo, credoLabel, credoNote);
+          setButtonText(t.buttons.sbp, sbpLabel, sbpNote);
+          setButtonText(t.buttons.crypto, cryptoLabel);
+          setButtonText(t.buttons.question, questionLabel);
 
+        if (bogModalTitle) bogModalTitle.textContent = t.bogTitle;
+        if (bogModal) bogModal.setAttribute("aria-label", t.bogTitle);
+        if (bogModalCloseSecondary) bogModalCloseSecondary.textContent = t.close;
+        if (copyBogButton) copyBogButton.textContent = t.bogCopy;
+        if (bogReceiver) bogReceiver.textContent = `${t.bogReceiverLabel} ${BOG_RECEIVER}`;
+        if (bogBank) bogBank.textContent = `${t.bogBankLabel} ${BOG_BANK}`;
+        if (bogIban) bogIban.textContent = `${t.bogIbanLabel} ${BOG_IBAN}`;
+        if (bogPurpose) bogPurpose.textContent = `${t.bogPurposeLabel} ${t.bogPurposeValue}`;
         if (credoModalTitle) credoModalTitle.textContent = t.credoTitle;
         if (credoReceiver) credoReceiver.textContent = `${t.credoReceiverLabel} ${CREDO_RECEIVER}`;
         if (credoBank) credoBank.textContent = `${t.credoBankLabel} ${CREDO_BANK}`;
@@ -601,26 +895,38 @@
         if (copyCryptoButton) copyCryptoButton.textContent = t.cryptoCopy;
         if (cryptoModalCloseSecondary) cryptoModalCloseSecondary.textContent = t.close;
 
-        if (questionModalTitle) questionModalTitle.textContent = t.questionTitle;
-        if (questionIntro) questionIntro.textContent = t.questionIntro;
-        if (questionTelegramLink) questionTelegramLink.textContent = t.questionTelegram;
-        if (questionWhatsAppLink) questionWhatsAppLink.textContent = t.questionWhatsApp;
-        if (questionModalCloseSecondary) questionModalCloseSecondary.textContent = t.close;
+          if (questionModalTitle) questionModalTitle.textContent = t.questionTitle;
+          if (questionIntro) questionIntro.textContent = t.questionIntro;
+          if (questionTelegramLink) questionTelegramLink.textContent = t.questionTelegram;
+          if (questionWhatsAppLink) questionWhatsAppLink.textContent = t.questionWhatsApp;
+          if (questionModalCloseSecondary) questionModalCloseSecondary.textContent = t.close;
 
-        if (footerLines?.length) {
-          footerLines.forEach((line, index) => {
-            if (t.footerLines[index]) {
-              line.textContent = t.footerLines[index];
-            }
-          });
-        }
+          if (inventoryModalTitle) inventoryModalTitle.textContent = t.inventory.title;
+          if (inventoryModal) inventoryModal.setAttribute("aria-label", t.inventory.title);
+          if (inventoryCloseSecondary) inventoryCloseSecondary.textContent = t.close;
+          if (inventoryTabs.length) {
+            inventoryTabs.forEach((tab) => {
+              const section = tab.dataset.section;
+              tab.textContent = t.inventory.tabs[section];
+            });
+          }
 
-        setActiveLangButton(lang);
-      };
+          renderInventoryLists(lang);
 
-      setLanguage(currentLang);
+          if (footerLines?.length) {
+            footerLines.forEach((line, index) => {
+              if (t.footerLines[index]) {
+                line.textContent = t.footerLines[index];
+              }
+            });
+          }
 
-      const getText = (key) => translations[currentLang]?.[key] || translations.ru[key];
+          setActiveLangButton(lang);
+        };
+
+        setLanguage(currentLang);
+
+        const getText = (key) => translations[currentLang]?.[key] || translations.ru[key];
 
       const showCopyNote = (message) => {
         if (!copyNote || !message) return;
@@ -640,9 +946,33 @@
         }
       };
 
+      const openBogModal = () => {
+        if (bogModal) {
+          bogModal.classList.add("is-visible");
+        }
+      };
+
+      const closeBogModal = () => {
+        if (bogModal) {
+          bogModal.classList.remove("is-visible");
+        }
+      };
+
       const closeCredoModal = () => {
         if (credoModal) {
           credoModal.classList.remove("is-visible");
+        }
+      };
+
+      const openInventoryModal = () => {
+        if (inventoryModal) {
+          inventoryModal.classList.add("is-visible");
+        }
+      };
+
+      const closeInventoryModal = () => {
+        if (inventoryModal) {
+          inventoryModal.classList.remove("is-visible");
         }
       };
 
@@ -677,6 +1007,20 @@
         });
       }
 
+      if (bogButton) {
+        bogButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openBogModal();
+        });
+      }
+
+      if (inventoryButton) {
+        inventoryButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openInventoryModal();
+        });
+      }
+
       if (langButtons.length) {
         langButtons.forEach((button) => {
           button.addEventListener("click", () => {
@@ -703,8 +1047,24 @@
         credoModalClose.addEventListener("click", closeCredoModal);
       }
 
+      if (bogModalClose) {
+        bogModalClose.addEventListener("click", closeBogModal);
+      }
+
       if (credoModalCloseSecondary) {
         credoModalCloseSecondary.addEventListener("click", closeCredoModal);
+      }
+
+      if (bogModalCloseSecondary) {
+        bogModalCloseSecondary.addEventListener("click", closeBogModal);
+      }
+
+      if (inventoryModalClose) {
+        inventoryModalClose.addEventListener("click", closeInventoryModal);
+      }
+
+      if (inventoryCloseSecondary) {
+        inventoryCloseSecondary.addEventListener("click", closeInventoryModal);
       }
 
       if (cryptoModalClose) {
@@ -727,6 +1087,22 @@
         credoModal.addEventListener("click", (event) => {
           if (event.target === credoModal) {
             closeCredoModal();
+          }
+        });
+      }
+
+      if (bogModal) {
+        bogModal.addEventListener("click", (event) => {
+          if (event.target === bogModal) {
+            closeBogModal();
+          }
+        });
+      }
+
+      if (inventoryModal) {
+        inventoryModal.addEventListener("click", (event) => {
+          if (event.target === inventoryModal) {
+            closeInventoryModal();
           }
         });
       }
@@ -755,10 +1131,35 @@
         });
       }
 
+      if (copyBogButton) {
+        copyBogButton.addEventListener("click", () => {
+          navigator.clipboard.writeText(BOG_IBAN).then(() => {
+            showCopyNote(getText("copyThanks"));
+          });
+        });
+      }
+
       if (copyCryptoButton) {
         copyCryptoButton.addEventListener("click", () => {
           navigator.clipboard.writeText(CRYPTO_ADDRESS).then(() => {
             showCopyNote(getText("copyThanks"));
+          });
+        });
+      }
+
+      if (inventoryTabs.length) {
+        inventoryTabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const section = tab.dataset.section;
+            inventoryTabs.forEach((innerTab) => {
+              const isActive = innerTab.dataset.section === section;
+              innerTab.classList.toggle("inventory-tab--active", isActive);
+              innerTab.setAttribute("aria-selected", isActive ? "true" : "false");
+            });
+            inventoryPanels.forEach((panel) => {
+              const isActive = panel.id === `inventory-panel-${section}`;
+              panel.classList.toggle("is-active", isActive);
+            });
           });
         });
       }
