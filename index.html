@@ -307,6 +307,10 @@
           <span class="btn__label" id="tbc-label">Пожертвовать лари на TBC</span>
           <span class="btn__note" id="tbc-note">в один клик</span>
         </a>
+        <a class="btn" id="bog-button" href="#">
+          <span class="btn__label" id="bog-label">Пожертвовать лари на Bank of Georgia</span>
+          <span class="btn__note" id="bog-note">по реквизитам</span>
+        </a>
         <a class="btn" id="credo-button" href="#">
           <span class="btn__label" id="credo-label">Пожертвовать лари на Credo</span>
           <span class="btn__note" id="credo-note">по реквизитам</span>
@@ -345,6 +349,22 @@
             Скопировать реквизиты
           </button>
           <button class="btn" type="button" id="close-credo">Закрыть</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="bog-modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bog-modal-title">
+        <button class="modal__close" type="button" aria-label="Закрыть" id="bog-modal-close">×</button>
+        <h2 class="modal__title" id="bog-modal-title">Реквизиты Bank of Georgia</h2>
+        <ul class="modal__list">
+          <li id="bog-receiver">Получатель: Stanislav</li>
+          <li id="bog-bank">Банк: Bank of Georgia</li>
+          <li id="bog-iban">IBAN: GE64BG0000000611135063</li>
+          <li id="bog-purpose">Назначение платежа: пожертвование храму</li>
+        </ul>
+        <div class="modal__actions">
+          <button class="btn btn--primary" type="button" id="copy-bog">Скопировать реквизиты</button>
+          <button class="btn" type="button" id="close-bog">Закрыть</button>
         </div>
       </div>
     </div>
@@ -395,6 +415,11 @@
     <script>
       const TBC_LINK = "https://tbconline.ge/MB/TT/GE91TB7070345061200005"; // Реальная ссылка оплаты TBC
       const SBP_LINK = "https://finance.ozon.ru/apps/sbp/ozonbankpay/019b7357-1f94-79b2-8448-8b0f55d2915d"; // Реальная ссылка для оплаты по СБП
+      const BOG_RECEIVER = "Stanislav"; // Получатель Bank of Georgia
+      const BOG_BANK = "Bank of Georgia"; // Банк для платежа
+      const BOG_IBAN = "GE64BG0000000611135063"; // IBAN для Bank of Georgia
+      const BOG_PURPOSE_RU = "пожертвование храму"; // Назначение платежа Bank of Georgia (RU)
+      const BOG_PURPOSE_EN = "donation to the temple"; // Назначение платежа Bank of Georgia (EN)
       const CREDO_RECEIVER = "Anatolii Smolin"; // Укажите фактического получателя, если изменится
       const CREDO_BANK = "Credo Bank"; // Укажите фактический банк при необходимости
       const CREDO_IBAN = "GE25CD0360000060644802"; // Укажите реальный IBAN для Credo
@@ -414,11 +439,19 @@
             "Если вы хотите принять финансовое участие в жизни храма, вы можете выбрать удобный для вас способ для пожертвований.",
           buttons: {
             tbc: { label: "Пожертвовать лари на TBC", note: "в один клик" },
+            bog: { label: "Пожертвовать лари на Bank of Georgia", note: "по реквизитам" },
             credo: { label: "Пожертвовать лари на Credo", note: "по реквизитам" },
             sbp: { label: "Пожертвовать рубли по СБП", note: "в один клик" },
             crypto: { label: "Пожертвовать криптовалюту" },
             question: { label: "Задать вопрос" },
           },
+          bogTitle: "Реквизиты Bank of Georgia",
+          bogReceiverLabel: "Получатель:",
+          bogBankLabel: "Банк:",
+          bogIbanLabel: "IBAN:",
+          bogPurposeLabel: "Назначение платежа:",
+          bogPurposeValue: BOG_PURPOSE_RU,
+          bogCopy: "Скопировать реквизиты",
           credoTitle: "Реквизиты Credo Bank",
           credoReceiverLabel: "Получатель:",
           credoBankLabel: "Банк:",
@@ -450,11 +483,19 @@
             "If you would like to support the temple, please choose the most convenient donation method.",
           buttons: {
             tbc: { label: "Donate GEL via TBC", note: "one click" },
+            bog: { label: "Donate GEL via Bank of Georgia", note: "bank details" },
             credo: { label: "Donate GEL via Credo", note: "bank details" },
             sbp: { label: "Donate RUB via SBP", note: "one click" },
             crypto: { label: "Donate cryptocurrency" },
             question: { label: "Ask a question" },
           },
+          bogTitle: "Bank of Georgia details",
+          bogReceiverLabel: "Recipient:",
+          bogBankLabel: "Bank:",
+          bogIbanLabel: "IBAN:",
+          bogPurposeLabel: "Payment purpose:",
+          bogPurposeValue: BOG_PURPOSE_EN,
+          bogCopy: "Copy details",
           credoTitle: "Credo Bank details",
           credoReceiverLabel: "Recipient:",
           credoBankLabel: "Bank:",
@@ -485,9 +526,20 @@
       const tbcLink = document.getElementById("tbc-link");
       const tbcLabel = document.getElementById("tbc-label");
       const tbcNote = document.getElementById("tbc-note");
+      const bogButton = document.getElementById("bog-button");
+      const bogLabel = document.getElementById("bog-label");
+      const bogNote = document.getElementById("bog-note");
       const sbpLink = document.getElementById("sbp-link");
       const sbpLabel = document.getElementById("sbp-label");
       const sbpNote = document.getElementById("sbp-note");
+      const bogModal = document.getElementById("bog-modal");
+      const bogModalClose = document.getElementById("bog-modal-close");
+      const bogModalCloseSecondary = document.getElementById("close-bog");
+      const copyBogButton = document.getElementById("copy-bog");
+      const bogReceiver = document.getElementById("bog-receiver");
+      const bogBank = document.getElementById("bog-bank");
+      const bogIban = document.getElementById("bog-iban");
+      const bogPurpose = document.getElementById("bog-purpose");
       const credoButton = document.getElementById("credo-button");
       const credoLabel = document.getElementById("credo-label");
       const credoNote = document.getElementById("credo-note");
@@ -518,6 +570,7 @@
       const cardTitle = document.querySelector("h1");
       const subtitle = document.querySelector(".subtitle");
       const copyNote = document.getElementById("copy-note");
+      const bogModalTitle = document.getElementById("bog-modal-title");
       const credoModalTitle = document.getElementById("credo-modal-title");
       const cryptoModalTitle = document.getElementById("crypto-modal-title");
       const questionModalTitle = document.getElementById("question-modal-title");
@@ -582,11 +635,20 @@
         if (subtitle) subtitle.textContent = t.subtitle;
 
         setButtonText(t.buttons.tbc, tbcLabel, tbcNote);
+        setButtonText(t.buttons.bog, bogLabel, bogNote);
         setButtonText(t.buttons.credo, credoLabel, credoNote);
         setButtonText(t.buttons.sbp, sbpLabel, sbpNote);
         setButtonText(t.buttons.crypto, cryptoLabel);
         setButtonText(t.buttons.question, questionLabel);
 
+        if (bogModalTitle) bogModalTitle.textContent = t.bogTitle;
+        if (bogModal) bogModal.setAttribute("aria-label", t.bogTitle);
+        if (bogModalCloseSecondary) bogModalCloseSecondary.textContent = t.close;
+        if (copyBogButton) copyBogButton.textContent = t.bogCopy;
+        if (bogReceiver) bogReceiver.textContent = `${t.bogReceiverLabel} ${BOG_RECEIVER}`;
+        if (bogBank) bogBank.textContent = `${t.bogBankLabel} ${BOG_BANK}`;
+        if (bogIban) bogIban.textContent = `${t.bogIbanLabel} ${BOG_IBAN}`;
+        if (bogPurpose) bogPurpose.textContent = `${t.bogPurposeLabel} ${t.bogPurposeValue}`;
         if (credoModalTitle) credoModalTitle.textContent = t.credoTitle;
         if (credoReceiver) credoReceiver.textContent = `${t.credoReceiverLabel} ${CREDO_RECEIVER}`;
         if (credoBank) credoBank.textContent = `${t.credoBankLabel} ${CREDO_BANK}`;
@@ -640,6 +702,18 @@
         }
       };
 
+      const openBogModal = () => {
+        if (bogModal) {
+          bogModal.classList.add("is-visible");
+        }
+      };
+
+      const closeBogModal = () => {
+        if (bogModal) {
+          bogModal.classList.remove("is-visible");
+        }
+      };
+
       const closeCredoModal = () => {
         if (credoModal) {
           credoModal.classList.remove("is-visible");
@@ -677,6 +751,13 @@
         });
       }
 
+      if (bogButton) {
+        bogButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openBogModal();
+        });
+      }
+
       if (langButtons.length) {
         langButtons.forEach((button) => {
           button.addEventListener("click", () => {
@@ -703,8 +784,16 @@
         credoModalClose.addEventListener("click", closeCredoModal);
       }
 
+      if (bogModalClose) {
+        bogModalClose.addEventListener("click", closeBogModal);
+      }
+
       if (credoModalCloseSecondary) {
         credoModalCloseSecondary.addEventListener("click", closeCredoModal);
+      }
+
+      if (bogModalCloseSecondary) {
+        bogModalCloseSecondary.addEventListener("click", closeBogModal);
       }
 
       if (cryptoModalClose) {
@@ -731,6 +820,14 @@
         });
       }
 
+      if (bogModal) {
+        bogModal.addEventListener("click", (event) => {
+          if (event.target === bogModal) {
+            closeBogModal();
+          }
+        });
+      }
+
       if (cryptoModal) {
         cryptoModal.addEventListener("click", (event) => {
           if (event.target === cryptoModal) {
@@ -750,6 +847,14 @@
       if (copyCredoButton) {
         copyCredoButton.addEventListener("click", () => {
           navigator.clipboard.writeText(CREDO_IBAN).then(() => {
+            showCopyNote(getText("copyThanks"));
+          });
+        });
+      }
+
+      if (copyBogButton) {
+        copyBogButton.addEventListener("click", () => {
+          navigator.clipboard.writeText(BOG_IBAN).then(() => {
             showCopyNote(getText("copyThanks"));
           });
         });
