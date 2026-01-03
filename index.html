@@ -126,6 +126,25 @@
         transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
       }
 
+      .btn--apple {
+        background: #000000;
+        color: #ffffff;
+        border-color: #000000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn--apple .btn__note {
+        color: #e8e8e8;
+      }
+
+      .btn--apple:hover,
+      .btn--apple:focus-visible {
+        background: #111111;
+        border-color: #111111;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
+        color: #ffffff;
+      }
+
       .btn__label {
         display: block;
       }
@@ -312,7 +331,7 @@
           <span class="btn__note" id="bog-note">по реквизитам</span>
         </a>
         <a
-          class="btn"
+          class="btn btn--apple"
           id="credo-button"
           href="https://moneypot.mycredo.ge/?publicId=3e09dfef-3f4f-47cc-a0cd-afdd5d0b551f"
           target="_blank"
