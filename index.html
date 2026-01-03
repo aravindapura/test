@@ -311,9 +311,15 @@
           <span class="btn__label" id="bog-label">Пожертвовать лари на Bank of Georgia</span>
           <span class="btn__note" id="bog-note">по реквизитам</span>
         </a>
-        <a class="btn" id="credo-button" href="#">
-          <span class="btn__label" id="credo-label">Пожертвовать лари на Credo</span>
-          <span class="btn__note" id="credo-note">по реквизитам</span>
+        <a
+          class="btn"
+          id="credo-button"
+          href="https://moneypot.mycredo.ge/?publicId=3e09dfef-3f4f-47cc-a0cd-afdd5d0b551f"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="btn__label" id="credo-label">Credo и Apple Pay</span>
+          <span class="btn__note" id="credo-note">онлайн оплата</span>
         </a>
         <a class="btn" id="sbp-link" href="#">
           <span class="btn__label" id="sbp-label">Пожертвовать рубли по СБП</span>
@@ -440,7 +446,7 @@
           buttons: {
             tbc: { label: "Пожертвовать лари на TBC", note: "в один клик" },
             bog: { label: "Пожертвовать лари на Bank of Georgia", note: "по реквизитам" },
-            credo: { label: "Пожертвовать лари на Credo", note: "по реквизитам" },
+              credo: { label: "Credo и Apple Pay", note: "онлайн оплата" },
             sbp: { label: "Пожертвовать рубли по СБП", note: "в один клик" },
             crypto: { label: "Пожертвовать криптовалюту" },
             question: { label: "Задать вопрос" },
@@ -484,7 +490,7 @@
           buttons: {
             tbc: { label: "Donate GEL via TBC", note: "one click" },
             bog: { label: "Donate GEL via Bank of Georgia", note: "bank details" },
-            credo: { label: "Donate GEL via Credo", note: "bank details" },
+              credo: { label: "Credo & Apple Pay", note: "online payment" },
             sbp: { label: "Donate RUB via SBP", note: "one click" },
             crypto: { label: "Donate cryptocurrency" },
             question: { label: "Ask a question" },
@@ -743,13 +749,6 @@
           questionModal.classList.remove("is-visible");
         }
       };
-
-      if (credoButton) {
-        credoButton.addEventListener("click", (event) => {
-          event.preventDefault();
-          openCredoModal();
-        });
-      }
 
       if (bogButton) {
         bogButton.addEventListener("click", (event) => {
