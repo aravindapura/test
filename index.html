@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Пожертвования Батумскому храму ИСККОН</title>
+    <title>Мантра-йога — оплата занятий</title>
     <style>
       * {
         box-sizing: border-box;
@@ -315,15 +315,14 @@
         <button class="lang-btn lang-btn--active" type="button" data-lang="ru">🇷🇺 Рус</button>
         <button class="lang-btn" type="button" data-lang="en">🇬🇧 Eng</button>
       </div>
-      <p class="card__overline">HARE KRISHNA Batumi</p>
-      <h1>ISKCON Centre</h1>
+      <h1>Мантра-йога</h1>
       <div class="actions">
         <a class="btn" id="tbc-link" href="#">
-          <span class="btn__label" id="tbc-label">Пожертвовать лари на TBC</span>
+          <span class="btn__label" id="tbc-label">Перевести лари на TBC</span>
           <span class="btn__note" id="tbc-note">в один клик</span>
         </a>
         <a class="btn" id="bog-button" href="#">
-          <span class="btn__label" id="bog-label">Пожертвовать лари на Bank of Georgia</span>
+          <span class="btn__label" id="bog-label">Перевести лари на Bank of Georgia</span>
           <span class="btn__note" id="bog-note">по реквизитам</span>
         </a>
         <a
@@ -337,20 +336,15 @@
           <span class="btn__note" id="credo-note">онлайн оплата</span>
         </a>
         <a class="btn" id="sbp-link" href="#">
-          <span class="btn__label" id="sbp-label">Пожертвовать рубли по СБП</span>
+          <span class="btn__label" id="sbp-label">Перевести рубли по СБП</span>
           <span class="btn__note" id="sbp-note">в один клик</span>
         </a>
         <a class="btn" id="crypto-button" href="#">
-          <span class="btn__label" id="crypto-label">Пожертвовать криптовалюту</span>
+          <span class="btn__label" id="crypto-label">Перевести криптовалюту</span>
         </a>
         <a class="btn" id="question-button" href="#">
           <span class="btn__label" id="question-label">Задать вопрос</span>
         </a>
-      </div>
-      <div class="footer-lines">
-        <p>Шри Шри Нитьянанда Гауранга Махабхава Расарадж ки джай</p>
-        <p>Шри Джаганат Баладев Субхадра ки джай</p>
-        <p>Шрила Прабхупада ки джай</p>
       </div>
     </main>
     <div class="modal-overlay" id="credo-modal">
@@ -363,7 +357,7 @@
           <li id="credo-receiver">Получатель: Anatolii Smolin</li>
           <li id="credo-bank">Банк: Credo Bank</li>
           <li id="credo-iban">IBAN: GE25CD0360000060644802</li>
-          <li id="credo-purpose">Назначение платежа: пожертвование храму</li>
+          <li id="credo-purpose">Назначение платежа: оплата занятий</li>
         </ul>
         <div class="modal__actions">
           <button class="btn btn--primary" type="button" id="copy-credo">
@@ -381,7 +375,7 @@
           <li id="bog-receiver">Получатель: Stanislav</li>
           <li id="bog-bank">Банк: Bank of Georgia</li>
           <li id="bog-iban">IBAN: GE64BG0000000611135063</li>
-          <li id="bog-purpose">Назначение платежа: пожертвование храму</li>
+          <li id="bog-purpose">Назначение платежа: оплата занятий</li>
         </ul>
         <div class="modal__actions">
           <button class="btn btn--primary" type="button" id="copy-bog">Скопировать реквизиты</button>
@@ -439,13 +433,13 @@
       const BOG_RECEIVER = "Stanislav"; // Получатель Bank of Georgia
       const BOG_BANK = "Bank of Georgia"; // Банк для платежа
       const BOG_IBAN = "GE64BG0000000611135063"; // IBAN для Bank of Georgia
-      const BOG_PURPOSE_RU = "пожертвование храму"; // Назначение платежа Bank of Georgia (RU)
-      const BOG_PURPOSE_EN = "donation to the temple"; // Назначение платежа Bank of Georgia (EN)
+      const BOG_PURPOSE_RU = "оплата занятий"; // Назначение платежа Bank of Georgia (RU)
+      const BOG_PURPOSE_EN = "payment for classes"; // Назначение платежа Bank of Georgia (EN)
       const CREDO_RECEIVER = "Anatolii Smolin"; // Укажите фактического получателя, если изменится
       const CREDO_BANK = "Credo Bank"; // Укажите фактический банк при необходимости
       const CREDO_IBAN = "GE25CD0360000060644802"; // Укажите реальный IBAN для Credo
-      const CREDO_PURPOSE_RU = "пожертвование храму"; // Обновите назначение платежа на русском
-      const CREDO_PURPOSE_EN = "donation to the temple"; // Обновите назначение платежа на английском при смене
+      const CREDO_PURPOSE_RU = "оплата занятий"; // Обновите назначение платежа на русском
+      const CREDO_PURPOSE_EN = "payment for classes"; // Обновите назначение платежа на английском при смене
       const CRYPTO_NETWORK = "TRON (TRC20)"; // Укажите используемую сеть перевода при изменении
       const CRYPTO_ADDRESS = "TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7"; // Реальный криптоадрес для TRC20
       const QUESTION_TELEGRAM = "https://t.me/aravinda108"; // Ссылка для связи в Telegram
@@ -454,14 +448,14 @@
 
       const translations = {
         ru: {
-          overline: "HARE KRISHNA Batumi",
-          title: "ISKCON Centre",
+          overline: "",
+          title: "Мантра-йога",
           buttons: {
-            tbc: { label: "Пожертвовать лари на TBC", note: "в один клик" },
-            bog: { label: "Пожертвовать лари на Bank of Georgia", note: "по реквизитам" },
+            tbc: { label: "Перевести лари на TBC", note: "в один клик" },
+            bog: { label: "Перевести лари на Bank of Georgia", note: "по реквизитам" },
               credo: { label: "Credo и Apple Pay", note: "онлайн оплата" },
-            sbp: { label: "Пожертвовать рубли по СБП", note: "в один клик" },
-            crypto: { label: "Пожертвовать криптовалюту" },
+            sbp: { label: "Перевести рубли по СБП", note: "в один клик" },
+            crypto: { label: "Перевести криптовалюту" },
             question: { label: "Задать вопрос" },
           },
           bogTitle: "Реквизиты Bank of Georgia",
@@ -479,31 +473,25 @@
           credoPurposeValue: CREDO_PURPOSE_RU,
           credoCopy: "Скопировать реквизиты",
           close: "Закрыть",
-          cryptoTitle: "Криптовалютный адрес для пожертвований",
+          cryptoTitle: "Криптовалютный адрес",
           cryptoNetworkLabel: "Сеть:",
           cryptoAddressLabel: "USDT TRC20:",
           cryptoCopy: "Скопировать адрес",
           questionTitle: "Связаться с нами",
-          questionIntro:
-            "Если у вас есть вопросы по пожертвованиям или вы хотите сделать целевое пожертвование, напишите нам",
+          questionIntro: "Если у вас есть вопросы, напишите нам",
           questionTelegram: "Написать в Telegram",
           questionWhatsApp: "Написать в WhatsApp",
-          copyThanks: "Спасибо за ваше служение",
-          footerLines: [
-            "Шри Шри Нитьянанда Гауранга Махабхава Расарадж ки джай",
-            "Шри Джаганат Баладев Субхадра ки джай",
-            "Шрила Прабхупада ки джай",
-          ],
+          copyThanks: "Скопировано",
         },
         en: {
-          overline: "HARE KRISHNA Batumi",
-          title: "ISKCON Centre",
+          overline: "",
+          title: "Mantra Yoga",
           buttons: {
-            tbc: { label: "Donate GEL via TBC", note: "one click" },
-            bog: { label: "Donate GEL via Bank of Georgia", note: "bank details" },
+            tbc: { label: "Transfer GEL via TBC", note: "one click" },
+            bog: { label: "Transfer GEL via Bank of Georgia", note: "bank details" },
               credo: { label: "Credo & Apple Pay", note: "online payment" },
-            sbp: { label: "Donate RUB via SBP", note: "one click" },
-            crypto: { label: "Donate cryptocurrency" },
+            sbp: { label: "Transfer RUB via SBP", note: "one click" },
+            crypto: { label: "Transfer cryptocurrency" },
             question: { label: "Ask a question" },
           },
           bogTitle: "Bank of Georgia details",
@@ -521,21 +509,15 @@
           credoPurposeValue: CREDO_PURPOSE_EN,
           credoCopy: "Copy details",
           close: "Close",
-          cryptoTitle: "Cryptocurrency donation address",
+          cryptoTitle: "Cryptocurrency address",
           cryptoNetworkLabel: "Network:",
           cryptoAddressLabel: "USDT TRC20:",
           cryptoCopy: "Copy address",
           questionTitle: "Contact us",
-          questionIntro:
-            "If you have questions about donations or wish to make a targeted offering, please message us.",
+          questionIntro: "If you have any questions, please message us.",
           questionTelegram: "Message on Telegram",
           questionWhatsApp: "Message on WhatsApp",
-          copyThanks: "Thank you for your service",
-          footerLines: [
-            "Sri Sri Nityananda Gauranga Mahabhava Rasaraj ki jai",
-            "Sri Jagannath Baladeva Subhadra ki jai",
-            "Srila Prabhupada ki jai",
-          ],
+          copyThanks: "Copied",
         },
       };
 
@@ -591,7 +573,6 @@
       const cryptoModalTitle = document.getElementById("crypto-modal-title");
       const questionModalTitle = document.getElementById("question-modal-title");
       const questionIntro = document.getElementById("question-intro");
-      const footerLines = document.querySelectorAll(".footer-lines p");
       let currentLang = "ru";
 
       if (tbcLink) {
@@ -683,14 +664,6 @@
         if (questionTelegramLink) questionTelegramLink.textContent = t.questionTelegram;
         if (questionWhatsAppLink) questionWhatsAppLink.textContent = t.questionWhatsApp;
         if (questionModalCloseSecondary) questionModalCloseSecondary.textContent = t.close;
-
-        if (footerLines?.length) {
-          footerLines.forEach((line, index) => {
-            if (t.footerLines[index]) {
-              line.textContent = t.footerLines[index];
-            }
-          });
-        }
 
         setActiveLangButton(lang);
       };
