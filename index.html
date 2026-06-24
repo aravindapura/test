@@ -317,10 +317,6 @@
       </div>
       <p class="card__overline">HARE KRISHNA Batumi</p>
       <h1>ISKCON Centre</h1>
-      <p class="subtitle">
-        Если вы хотите принять финансовое участие в жизни храма, вы можете выбрать удобный
-        для вас способ для пожертвований.
-      </p>
       <div class="actions">
         <a class="btn" id="tbc-link" href="#">
           <span class="btn__label" id="tbc-label">Пожертвовать лари на TBC</span>
@@ -460,8 +456,6 @@
         ru: {
           overline: "HARE KRISHNA Batumi",
           title: "ISKCON Centre",
-          subtitle:
-            "Если вы хотите принять финансовое участие в жизни храма, вы можете выбрать удобный для вас способ для пожертвований.",
           buttons: {
             tbc: { label: "Пожертвовать лари на TBC", note: "в один клик" },
             bog: { label: "Пожертвовать лари на Bank of Georgia", note: "по реквизитам" },
@@ -504,8 +498,6 @@
         en: {
           overline: "HARE KRISHNA Batumi",
           title: "ISKCON Centre",
-          subtitle:
-            "If you would like to support the temple, please choose the most convenient donation method.",
           buttons: {
             tbc: { label: "Donate GEL via TBC", note: "one click" },
             bog: { label: "Donate GEL via Bank of Georgia", note: "bank details" },
@@ -593,7 +585,6 @@
       const questionWhatsAppLink = document.getElementById("question-whatsapp");
       const cardOverline = document.querySelector(".card__overline");
       const cardTitle = document.querySelector("h1");
-      const subtitle = document.querySelector(".subtitle");
       const copyNote = document.getElementById("copy-note");
       const bogModalTitle = document.getElementById("bog-modal-title");
       const credoModalTitle = document.getElementById("credo-modal-title");
@@ -657,7 +648,6 @@
 
         if (cardOverline) cardOverline.textContent = t.overline;
         if (cardTitle) cardTitle.textContent = t.title;
-        if (subtitle) subtitle.textContent = t.subtitle;
 
         setButtonText(t.buttons.tbc, tbcLabel, tbcNote);
         setButtonText(t.buttons.bog, bogLabel, bogNote);
