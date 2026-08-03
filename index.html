@@ -12,7 +12,7 @@
       * {
         box-sizing: border-box;
       }
- 
+
       body {
         margin: 0;
         min-height: 100vh;
@@ -24,7 +24,7 @@
         color: #1f1f1f;
         padding: 16px;
       }
- 
+
       .card {
         width: min(600px, calc(100vw - 32px));
         max-width: 580px;
@@ -34,14 +34,14 @@
         box-shadow: 0 12px 35px rgba(33, 33, 52, 0.08);
         text-align: center;
       }
- 
+
       .lang-switch {
         display: inline-flex;
         gap: 10px;
         justify-content: center;
         margin: 0 0 12px;
       }
- 
+
       .lang-btn {
         border: 1px solid #e0d6c9;
         background: #f7f4ed;
@@ -54,7 +54,7 @@
         box-shadow: 0 2px 6px rgba(33, 33, 52, 0.08);
         transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
       }
- 
+
       .lang-btn:hover,
       .lang-btn:focus-visible {
         background: #ebe4d6;
@@ -62,27 +62,27 @@
         box-shadow: 0 4px 10px rgba(33, 33, 52, 0.12);
         outline: none;
       }
- 
+
       .lang-btn--active {
         background: #2f80ed;
         border-color: #2f80ed;
         color: #ffffff;
         box-shadow: 0 6px 14px rgba(47, 128, 237, 0.35);
       }
- 
+
       .card__overline {
         margin: 0 0 12px;
         font-size: 14px;
         letter-spacing: 0.01em;
         color: #60616a;
       }
- 
+
       h1 {
         margin: 0 0 16px;
         font-size: 28px;
         line-height: 1.3;
       }
- 
+
       .subtitle {
         margin: 0;
         font-size: 17px;
@@ -90,28 +90,28 @@
         color: #3c3d45;
         word-break: break-word;
       }
- 
+
       .actions {
         margin-top: 28px;
         display: grid;
         gap: 14px;
       }
- 
+
       .footer-lines {
         margin-top: 28px;
         font-size: 14px;
         line-height: 1.6;
         color: #4a4b52;
       }
- 
+
       .footer-lines p {
         margin: 0;
       }
- 
+
       .footer-lines p + p {
         margin-top: 6px;
       }
- 
+
       .btn {
         display: block;
         width: 100%;
@@ -129,18 +129,18 @@
         box-shadow: 0 3px 10px rgba(33, 33, 52, 0.08);
         transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
       }
- 
+
       .btn--apple {
         background: #000000;
         color: #ffffff;
         border-color: #000000;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }
- 
+
       .btn--apple .btn__note {
         color: #e8e8e8;
       }
- 
+
       .btn--apple:hover,
       .btn--apple:focus-visible {
         background: #111111;
@@ -148,11 +148,11 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
         color: #ffffff;
       }
- 
+
       .btn__label {
         display: block;
       }
- 
+
       .btn__note {
         display: block;
         margin-top: 4px;
@@ -160,7 +160,7 @@
         font-weight: 400;
         color: #3c3d45;
       }
- 
+
       .btn:hover,
       .btn:focus-visible {
         background: #ebe4d6;
@@ -168,7 +168,7 @@
         box-shadow: 0 6px 18px rgba(33, 33, 52, 0.12);
         outline: none;
       }
- 
+
       .modal-overlay {
         position: fixed;
         inset: 0;
@@ -179,11 +179,11 @@
         padding: 16px;
         z-index: 1000;
       }
- 
+
       .modal-overlay.is-visible {
         display: flex;
       }
- 
+
       .modal {
         background: #ffffff;
         color: #1f1f1f;
@@ -195,14 +195,14 @@
         max-height: 90vh;
         overflow-y: auto;
       }
- 
+
       .modal__title {
         margin: 0 0 14px;
         font-size: 22px;
         line-height: 1.3;
         text-align: center;
       }
- 
+
       .modal__list {
         margin: 0 0 18px;
         padding: 0;
@@ -212,20 +212,20 @@
         color: #3c3d45;
         word-break: break-word;
       }
- 
+
       .modal__list li + li {
         margin-top: 6px;
       }
- 
+
       .modal__actions {
         display: flex;
         gap: 10px;
       }
- 
+
       .modal__actions .btn {
         flex: 1;
       }
- 
+
       .modal__close {
         position: absolute;
         top: 10px;
@@ -240,20 +240,20 @@
         border-radius: 8px;
         transition: background 0.2s ease, color 0.2s ease;
       }
- 
+
       .modal__close:hover,
       .modal__close:focus-visible {
         background: #f0ede7;
         color: #1f1f1f;
         outline: none;
       }
- 
+
       .btn--primary {
         background: #2f80ed;
         color: #ffffff;
         border-color: #2f80ed;
       }
- 
+
       .btn--primary:hover,
       .btn--primary:focus-visible {
         background: #2c74d7;
@@ -261,7 +261,7 @@
         color: #ffffff;
         outline: none;
       }
- 
+
       .copy-note {
         position: fixed;
         left: 50%;
@@ -279,34 +279,34 @@
         transition: opacity 0.15s ease;
         z-index: 1500;
       }
- 
+
       .copy-note.is-visible {
         opacity: 1;
       }
- 
+
       @media (max-width: 480px) {
         .card {
           padding: 22px 18px 26px;
         }
- 
+
         h1 {
           font-size: 22px;
           margin-bottom: 12px;
         }
- 
+
         .subtitle {
           font-size: 15px;
         }
- 
+
         .actions {
           margin-top: 22px;
           gap: 10px;
         }
- 
+
         .modal {
           width: 100%;
         }
- 
+
         .modal__actions {
           flex-direction: column;
         }
@@ -328,7 +328,7 @@
           <span class="btn__label" id="bog-label">Перевести лари на Bank of Georgia</span>
           <span class="btn__note" id="bog-note">по реквизитам</span>
         </a>
-        <a
+        
           class="btn btn--apple"
           id="credo-button"
           href="https://moneypot.mycredo.ge/?publicId=707d7ade-9d47-43bb-9625-690fe0653807"
@@ -338,9 +338,8 @@
           <span class="btn__label" id="credo-label">Credo и Apple Pay</span>
           <span class="btn__note" id="credo-note">онлайн оплата</span>
         </a>
-        <a class="btn" id="sbp-link" href="#">
-          <span class="btn__label" id="sbp-label">Перевести рубли по СБП</span>
-          <span class="btn__note" id="sbp-note">в один клик</span>
+        <a class="btn" id="sbp-button" href="#">
+          <span class="btn__label" id="sbp-label">Перевести рубли</span>
         </a>
         <a class="btn" id="crypto-button" href="#">
           <span class="btn__label" id="crypto-label">Перевести криптовалюту</span>
@@ -384,6 +383,21 @@
         </div>
       </div>
     </div>
+    <div class="modal-overlay" id="sbp-modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sbp-modal-title">
+        <button class="modal__close" type="button" aria-label="Закрыть" id="sbp-modal-close">×</button>
+        <h2 class="modal__title" id="sbp-modal-title">Реквизиты для перевода в рублях</h2>
+        <ul class="modal__list">
+          <li id="sbp-receiver">Получатель: Анатолий С</li>
+          <li id="sbp-bank">Банк: Сбер</li>
+          <li id="sbp-req">Телефон/карта: 89324169924</li>
+        </ul>
+        <div class="modal__actions">
+          <button class="btn btn--primary" type="button" id="copy-sbp">Скопировать реквизиты</button>
+          <button class="btn" type="button" id="close-sbp">Закрыть</button>
+        </div>
+      </div>
+    </div>
     <div class="modal-overlay" id="crypto-modal">
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="crypto-modal-title">
         <button class="modal__close" type="button" aria-label="Закрыть" id="crypto-modal-close">
@@ -412,7 +426,7 @@
             напишите нам
           </li>
           <li>
-            <a class="btn" id="question-telegram" href="https://t.me/aravinda108" target="_blank" rel="noopener noreferrer">
+            <a class="btn" id="question-telegram" href="https://t.me/aravindarupa108" target="_blank" rel="noopener noreferrer">
               Написать в Telegram
             </a>
           </li>
@@ -430,23 +444,21 @@
     <div class="copy-note" id="copy-note" role="status" aria-live="polite"></div>
     <script>
       const TBC_LINK = "https://tbconline.ge/MB/TT/GE91TB7070345061200005"; // Реальная ссылка оплаты TBC
-      const SBP_LINK = "https://finance.ozon.ru/apps/sbp/ozonbankpay/019b7357-1f94-79b2-8448-8b0f55d2915d"; // Реальная ссылка для оплаты по СБП
       const BOG_RECEIVER = "Rajan Kamlesh Prasad"; // Получатель Bank of Georgia
       const BOG_BANK = "Bank of Georgia"; // Банк для платежа
       const BOG_IBAN = "GE34BG0000000537402023"; // IBAN для Bank of Georgia
-      const BOG_PURPOSE_RU = "оплата занятий"; // Назначение платежа Bank of Georgia (RU)
-      const BOG_PURPOSE_EN = "payment for classes"; // Назначение платежа Bank of Georgia (EN)
       const CREDO_RECEIVER = "Anatolii Smolin"; // Укажите фактического получателя, если изменится
       const CREDO_BANK = "Credo Bank"; // Укажите фактический банк при необходимости
       const CREDO_IBAN = "GE25CD0360000060644802"; // Укажите реальный IBAN для Credo
-      const CREDO_PURPOSE_RU = "оплата занятий"; // Обновите назначение платежа на русском
-      const CREDO_PURPOSE_EN = "payment for classes"; // Обновите назначение платежа на английском при смене
+      const SBP_RECEIVER = "Анатолий С"; // Получатель перевода в рублях
+      const SBP_BANK = "Сбер"; // Банк для перевода в рублях
+      const SBP_REQUISITES = "89324169924"; // Телефон/карта для перевода в рублях
       const CRYPTO_NETWORK = "TRON (TRC20)"; // Укажите используемую сеть перевода при изменении
       const CRYPTO_ADDRESS = "TEAp4gtjZ722LPCmeaXWiuhKmRGsbm6zj7"; // Реальный криптоадрес для TRC20
-      const QUESTION_TELEGRAM = "https://t.me/aravinda108"; // Ссылка для связи в Telegram
+      const QUESTION_TELEGRAM = "https://t.me/aravindarupa108"; // Ссылка для связи в Telegram
       const QUESTION_WHATSAPP = "https://wa.me/79324169924"; // Ссылка для связи в WhatsApp
       let copyNoteTimer;
- 
+
       const translations = {
         ru: {
           overline: "",
@@ -455,7 +467,7 @@
             tbc: { label: "Перевести лари на TBC", note: "в один клик" },
             bog: { label: "Перевести лари на Bank of Georgia", note: "по реквизитам" },
               credo: { label: "Credo и Apple Pay", note: "онлайн оплата" },
-            sbp: { label: "Перевести рубли по СБП", note: "в один клик" },
+            sbp: { label: "Перевести рубли" },
             crypto: { label: "Перевести криптовалюту" },
             question: { label: "Задать вопрос" },
           },
@@ -463,16 +475,17 @@
           bogReceiverLabel: "Получатель:",
           bogBankLabel: "Банк:",
           bogIbanLabel: "IBAN:",
-          bogPurposeLabel: "Назначение платежа:",
-          bogPurposeValue: BOG_PURPOSE_RU,
           bogCopy: "Скопировать реквизиты",
           credoTitle: "Реквизиты Credo Bank",
           credoReceiverLabel: "Получатель:",
           credoBankLabel: "Банк:",
           credoIbanLabel: "IBAN:",
-          credoPurposeLabel: "Назначение платежа:",
-          credoPurposeValue: CREDO_PURPOSE_RU,
           credoCopy: "Скопировать реквизиты",
+          sbpTitle: "Реквизиты для перевода в рублях",
+          sbpReceiverLabel: "Получатель:",
+          sbpBankLabel: "Банк:",
+          sbpReqLabel: "Телефон/карта:",
+          sbpCopy: "Скопировать реквизиты",
           close: "Закрыть",
           cryptoTitle: "Криптовалютный адрес",
           cryptoNetworkLabel: "Сеть:",
@@ -491,7 +504,7 @@
             tbc: { label: "Transfer GEL via TBC", note: "one click" },
             bog: { label: "Transfer GEL via Bank of Georgia", note: "bank details" },
               credo: { label: "Credo & Apple Pay", note: "online payment" },
-            sbp: { label: "Transfer RUB via SBP", note: "one click" },
+            sbp: { label: "Transfer RUB" },
             crypto: { label: "Transfer cryptocurrency" },
             question: { label: "Ask a question" },
           },
@@ -499,16 +512,17 @@
           bogReceiverLabel: "Recipient:",
           bogBankLabel: "Bank:",
           bogIbanLabel: "IBAN:",
-          bogPurposeLabel: "Payment purpose:",
-          bogPurposeValue: BOG_PURPOSE_EN,
           bogCopy: "Copy details",
           credoTitle: "Credo Bank details",
           credoReceiverLabel: "Recipient:",
           credoBankLabel: "Bank:",
           credoIbanLabel: "IBAN:",
-          credoPurposeLabel: "Payment purpose:",
-          credoPurposeValue: CREDO_PURPOSE_EN,
           credoCopy: "Copy details",
+          sbpTitle: "Details for RUB transfer",
+          sbpReceiverLabel: "Recipient:",
+          sbpBankLabel: "Bank:",
+          sbpReqLabel: "Phone/card:",
+          sbpCopy: "Copy details",
           close: "Close",
           cryptoTitle: "Cryptocurrency address",
           cryptoNetworkLabel: "Network:",
@@ -521,7 +535,7 @@
           copyThanks: "Copied",
         },
       };
- 
+
       const langButtons = document.querySelectorAll(".lang-btn");
       const tbcLink = document.getElementById("tbc-link");
       const tbcLabel = document.getElementById("tbc-label");
@@ -529,9 +543,8 @@
       const bogButton = document.getElementById("bog-button");
       const bogLabel = document.getElementById("bog-label");
       const bogNote = document.getElementById("bog-note");
-      const sbpLink = document.getElementById("sbp-link");
+      const sbpButton = document.getElementById("sbp-button");
       const sbpLabel = document.getElementById("sbp-label");
-      const sbpNote = document.getElementById("sbp-note");
       const bogModal = document.getElementById("bog-modal");
       const bogModalClose = document.getElementById("bog-modal-close");
       const bogModalCloseSecondary = document.getElementById("close-bog");
@@ -539,7 +552,6 @@
       const bogReceiver = document.getElementById("bog-receiver");
       const bogBank = document.getElementById("bog-bank");
       const bogIban = document.getElementById("bog-iban");
-      const bogPurpose = document.getElementById("bog-purpose");
       const credoButton = document.getElementById("credo-button");
       const credoLabel = document.getElementById("credo-label");
       const credoNote = document.getElementById("credo-note");
@@ -550,7 +562,14 @@
       const credoReceiver = document.getElementById("credo-receiver");
       const credoBank = document.getElementById("credo-bank");
       const credoIban = document.getElementById("credo-iban");
-      const credoPurpose = document.getElementById("credo-purpose");
+      const sbpModal = document.getElementById("sbp-modal");
+      const sbpModalClose = document.getElementById("sbp-modal-close");
+      const sbpModalCloseSecondary = document.getElementById("close-sbp");
+      const copySbpButton = document.getElementById("copy-sbp");
+      const sbpReceiver = document.getElementById("sbp-receiver");
+      const sbpBank = document.getElementById("sbp-bank");
+      const sbpReq = document.getElementById("sbp-req");
+      const sbpModalTitle = document.getElementById("sbp-modal-title");
       const cryptoButton = document.getElementById("crypto-button");
       const cryptoLabel = document.getElementById("crypto-label");
       const cryptoModal = document.getElementById("crypto-modal");
@@ -575,27 +594,21 @@
       const questionModalTitle = document.getElementById("question-modal-title");
       const questionIntro = document.getElementById("question-intro");
       let currentLang = "ru";
- 
+
       if (tbcLink) {
         tbcLink.href = TBC_LINK;
         tbcLink.target = "_blank";
         tbcLink.rel = "noopener noreferrer";
       }
- 
-      if (sbpLink) {
-        sbpLink.href = SBP_LINK;
-        sbpLink.target = "_blank";
-        sbpLink.rel = "noopener noreferrer";
-      }
- 
+
       if (questionTelegramLink) {
         questionTelegramLink.href = QUESTION_TELEGRAM;
       }
- 
+
       if (questionWhatsAppLink) {
         questionWhatsAppLink.href = QUESTION_WHATSAPP;
       }
- 
+
       const setActiveLangButton = (lang) => {
         langButtons.forEach((button) => {
           if (button.dataset.lang === lang) {
@@ -605,12 +618,12 @@
           }
         });
       };
- 
+
       const setButtonText = (config, labelEl, noteEl) => {
         if (labelEl && config?.label) {
           labelEl.textContent = config.label;
         }
- 
+
         if (noteEl) {
           if (config?.note) {
             noteEl.textContent = config.note;
@@ -621,23 +634,23 @@
           }
         }
       };
- 
+
       const setLanguage = (lang) => {
         if (!translations[lang]) return;
         currentLang = lang;
         const t = translations[lang];
         document.documentElement.lang = lang;
- 
+
         if (cardOverline) cardOverline.textContent = t.overline;
         if (cardTitle) cardTitle.textContent = t.title;
- 
+
         setButtonText(t.buttons.tbc, tbcLabel, tbcNote);
         setButtonText(t.buttons.bog, bogLabel, bogNote);
         setButtonText(t.buttons.credo, credoLabel, credoNote);
-        setButtonText(t.buttons.sbp, sbpLabel, sbpNote);
+        setButtonText(t.buttons.sbp, sbpLabel);
         setButtonText(t.buttons.crypto, cryptoLabel);
         setButtonText(t.buttons.question, questionLabel);
- 
+
         if (bogModalTitle) bogModalTitle.textContent = t.bogTitle;
         if (bogModal) bogModal.setAttribute("aria-label", t.bogTitle);
         if (bogModalCloseSecondary) bogModalCloseSecondary.textContent = t.close;
@@ -645,34 +658,40 @@
         if (bogReceiver) bogReceiver.textContent = `${t.bogReceiverLabel} ${BOG_RECEIVER}`;
         if (bogBank) bogBank.textContent = `${t.bogBankLabel} ${BOG_BANK}`;
         if (bogIban) bogIban.textContent = `${t.bogIbanLabel} ${BOG_IBAN}`;
-        if (bogPurpose) bogPurpose.textContent = `${t.bogPurposeLabel} ${t.bogPurposeValue}`;
         if (credoModalTitle) credoModalTitle.textContent = t.credoTitle;
         if (credoReceiver) credoReceiver.textContent = `${t.credoReceiverLabel} ${CREDO_RECEIVER}`;
         if (credoBank) credoBank.textContent = `${t.credoBankLabel} ${CREDO_BANK}`;
         if (credoIban) credoIban.textContent = `${t.credoIbanLabel} ${CREDO_IBAN}`;
-        if (credoPurpose) credoPurpose.textContent = `${t.credoPurposeLabel} ${t.credoPurposeValue}`;
         if (copyCredoButton) copyCredoButton.textContent = t.credoCopy;
         if (credoModalCloseSecondary) credoModalCloseSecondary.textContent = t.close;
- 
+
+        if (sbpModalTitle) sbpModalTitle.textContent = t.sbpTitle;
+        if (sbpModal) sbpModal.setAttribute("aria-label", t.sbpTitle);
+        if (sbpReceiver) sbpReceiver.textContent = `${t.sbpReceiverLabel} ${SBP_RECEIVER}`;
+        if (sbpBank) sbpBank.textContent = `${t.sbpBankLabel} ${SBP_BANK}`;
+        if (sbpReq) sbpReq.textContent = `${t.sbpReqLabel} ${SBP_REQUISITES}`;
+        if (copySbpButton) copySbpButton.textContent = t.sbpCopy;
+        if (sbpModalCloseSecondary) sbpModalCloseSecondary.textContent = t.close;
+
         if (cryptoModalTitle) cryptoModalTitle.textContent = t.cryptoTitle;
         if (cryptoNetwork) cryptoNetwork.textContent = `${t.cryptoNetworkLabel} ${CRYPTO_NETWORK}`;
         if (cryptoAddress) cryptoAddress.textContent = `${t.cryptoAddressLabel} ${CRYPTO_ADDRESS}`;
         if (copyCryptoButton) copyCryptoButton.textContent = t.cryptoCopy;
         if (cryptoModalCloseSecondary) cryptoModalCloseSecondary.textContent = t.close;
- 
+
         if (questionModalTitle) questionModalTitle.textContent = t.questionTitle;
         if (questionIntro) questionIntro.textContent = t.questionIntro;
         if (questionTelegramLink) questionTelegramLink.textContent = t.questionTelegram;
         if (questionWhatsAppLink) questionWhatsAppLink.textContent = t.questionWhatsApp;
         if (questionModalCloseSecondary) questionModalCloseSecondary.textContent = t.close;
- 
+
         setActiveLangButton(lang);
       };
- 
+
       setLanguage(currentLang);
- 
+
       const getText = (key) => translations[currentLang]?.[key] || translations.ru[key];
- 
+
       const showCopyNote = (message) => {
         if (!copyNote || !message) return;
         copyNote.textContent = message;
@@ -684,62 +703,81 @@
           copyNote.classList.remove("is-visible");
         }, 2400);
       };
- 
+
       const openCredoModal = () => {
         if (credoModal) {
           credoModal.classList.add("is-visible");
         }
       };
- 
+
       const openBogModal = () => {
         if (bogModal) {
           bogModal.classList.add("is-visible");
         }
       };
- 
+
       const closeBogModal = () => {
         if (bogModal) {
           bogModal.classList.remove("is-visible");
         }
       };
- 
+
       const closeCredoModal = () => {
         if (credoModal) {
           credoModal.classList.remove("is-visible");
         }
       };
- 
+
+      const openSbpModal = () => {
+        if (sbpModal) {
+          sbpModal.classList.add("is-visible");
+        }
+      };
+
+      const closeSbpModal = () => {
+        if (sbpModal) {
+          sbpModal.classList.remove("is-visible");
+        }
+      };
+
       const openCryptoModal = () => {
         if (cryptoModal) {
           cryptoModal.classList.add("is-visible");
         }
       };
- 
+
       const closeCryptoModal = () => {
         if (cryptoModal) {
           cryptoModal.classList.remove("is-visible");
         }
       };
- 
+
       const openQuestionModal = () => {
         if (questionModal) {
           questionModal.classList.add("is-visible");
         }
       };
- 
+
       const closeQuestionModal = () => {
         if (questionModal) {
           questionModal.classList.remove("is-visible");
         }
       };
- 
+
       if (bogButton) {
         bogButton.addEventListener("click", (event) => {
           event.preventDefault();
           openBogModal();
         });
       }
- 
+
+      if (sbpButton) {
+        sbpButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openSbpModal();
+        });
+      }
+
       if (langButtons.length) {
         langButtons.forEach((button) => {
           button.addEventListener("click", () => {
@@ -747,53 +785,61 @@
           });
         });
       }
- 
+
       if (cryptoButton) {
         cryptoButton.addEventListener("click", (event) => {
           event.preventDefault();
           openCryptoModal();
         });
       }
- 
+
       if (questionButton) {
         questionButton.addEventListener("click", (event) => {
           event.preventDefault();
           openQuestionModal();
         });
       }
- 
+
       if (credoModalClose) {
         credoModalClose.addEventListener("click", closeCredoModal);
       }
- 
+
       if (bogModalClose) {
         bogModalClose.addEventListener("click", closeBogModal);
       }
- 
+
       if (credoModalCloseSecondary) {
         credoModalCloseSecondary.addEventListener("click", closeCredoModal);
       }
- 
+
       if (bogModalCloseSecondary) {
         bogModalCloseSecondary.addEventListener("click", closeBogModal);
       }
- 
+
+      if (sbpModalClose) {
+        sbpModalClose.addEventListener("click", closeSbpModal);
+      }
+
+      if (sbpModalCloseSecondary) {
+        sbpModalCloseSecondary.addEventListener("click", closeSbpModal);
+      }
+
       if (cryptoModalClose) {
         cryptoModalClose.addEventListener("click", closeCryptoModal);
       }
- 
+
       if (cryptoModalCloseSecondary) {
         cryptoModalCloseSecondary.addEventListener("click", closeCryptoModal);
       }
- 
+
       if (questionModalClose) {
         questionModalClose.addEventListener("click", closeQuestionModal);
       }
- 
+
       if (questionModalCloseSecondary) {
         questionModalCloseSecondary.addEventListener("click", closeQuestionModal);
       }
- 
+
       if (credoModal) {
         credoModal.addEventListener("click", (event) => {
           if (event.target === credoModal) {
@@ -801,7 +847,7 @@
           }
         });
       }
- 
+
       if (bogModal) {
         bogModal.addEventListener("click", (event) => {
           if (event.target === bogModal) {
@@ -809,7 +855,15 @@
           }
         });
       }
- 
+
+      if (sbpModal) {
+        sbpModal.addEventListener("click", (event) => {
+          if (event.target === sbpModal) {
+            closeSbpModal();
+          }
+        });
+      }
+
       if (cryptoModal) {
         cryptoModal.addEventListener("click", (event) => {
           if (event.target === cryptoModal) {
@@ -817,7 +871,7 @@
           }
         });
       }
- 
+
       if (questionModal) {
         questionModal.addEventListener("click", (event) => {
           if (event.target === questionModal) {
@@ -825,7 +879,7 @@
           }
         });
       }
- 
+
       if (copyCredoButton) {
         copyCredoButton.addEventListener("click", () => {
           navigator.clipboard.writeText(CREDO_IBAN).then(() => {
@@ -833,7 +887,7 @@
           });
         });
       }
- 
+
       if (copyBogButton) {
         copyBogButton.addEventListener("click", () => {
           navigator.clipboard.writeText(BOG_IBAN).then(() => {
@@ -841,7 +895,15 @@
           });
         });
       }
- 
+
+      if (copySbpButton) {
+        copySbpButton.addEventListener("click", () => {
+          navigator.clipboard.writeText(SBP_REQUISITES).then(() => {
+            showCopyNote(getText("copyThanks"));
+          });
+        });
+      }
+
       if (copyCryptoButton) {
         copyCryptoButton.addEventListener("click", () => {
           navigator.clipboard.writeText(CRYPTO_ADDRESS).then(() => {
