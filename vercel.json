@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/**/*.{js,ts}": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    { "source": "/transactions", "destination": "/api/transactions" },
+    { "source": "/transactions/:id", "destination": "/api/transactions/:id" },
+    { "source": "/summary", "destination": "/api/summary" }
+  ]
+}
