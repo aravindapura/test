@@ -1,0 +1,17 @@
+{
+  "name": "finance-tracker",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "vercel-build": "tsc",
+    "dev": "npm run build && node dist/scripts/dev-server.js",
+    "lint": "tsc --noEmit",
+    "start": "npm run build && node dist/src/app.js",
+    "cli": "npm run build && node dist/src/cli.js",
+    "test": "npm run build && node --test dist/tests/*.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
