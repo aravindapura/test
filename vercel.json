@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/**/*.{js,ts}": {
+      "runtime": "@vercel/node@2.15.10"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1.js"
+    }
+  ]
+}
